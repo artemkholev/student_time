@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Public+Sans:wght@400;600;700&display=swap');
+
+//colors
+$main-color: #909f0a;
+$background-color: #FFFAFA;
+$active-link-color: #D1E231;
+$title-color: #1D1D1D;
+$text-color: #2A2F37;
+$text-color-lite-grey: #2a2f377c;
+
+//fonts
+$title: 'Public Sans', sans-serif;
+$text: 'Jost', sans-serif;
+
+//vars
+$title-size: calc(18px + (60 - 18) * ((100vw - 320px) / (1920 - 320)));
+$text-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
