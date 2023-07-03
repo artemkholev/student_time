@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "commonjs-variables-for-esmodules": "^1.1.0",
+    "mobx-react-lite": "^3.4.3",
+    "observer": "^0.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.12.1"
+    "react-router-dom": "^6.12.1",
+    "sass": "^1.63.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",

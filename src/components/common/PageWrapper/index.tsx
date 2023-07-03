@@ -1,11 +1,12 @@
 import React from "react";
 
-//import footer 
-//import header
-import style from 'src/components/common/PageWrapper/PageWrapper.modules.scss';
+import Header from '../Header';
+// import Footer from '../Footer';
+import style from './PageWrapper.module.scss';
 
 export const PageWrapper = () => (
-  <div className="page_wrapper">
-     <h1>Hello</h1>
+  <div className={style.page_wrapper}>
+    <Header />
+     <h1>Main</h1>
   </div>
-);
+); 
