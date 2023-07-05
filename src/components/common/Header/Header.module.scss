@@ -3,7 +3,7 @@
 
 .header {
   grid-area: header;
-  background-color: $background-color;
+  background-color: $black;
   z-index: 10;
   height: 171px;
   flex-shrink: 0;
@@ -24,7 +24,7 @@
       top: 26px;
       left: 65px;
       margin-bottom: 89px;
-      color: rgba(255, 255, 255, 0.96);
+      color: $text-color;
       font-family: Itim;
       border-bottom: 3px solid #FFF;
       width: 261px;
@@ -49,7 +49,7 @@
         flex-direction: column;
         justify-content: center;
         flex-shrink: 0;
-        color: #FFF;
+        color: $text-color;
         text-align: center;
         font-size: 14px;
         font-family: Itim;
@@ -67,7 +67,7 @@
         flex-direction: column;
         justify-content: center;
         flex-shrink: 0;
-        color: #FFF;
+        color: $text-color;
         text-align: center;
         font-size: 14px;
         font-family: Itim;

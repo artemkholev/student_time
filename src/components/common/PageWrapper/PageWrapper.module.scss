@@ -6,8 +6,7 @@
     'header'
     'content'
     'footer';
-  background-color: #E9E9E9;
-  grid-template-rows: 70px auto 70px;
+  grid-template-rows: 171px auto 171px;
   width: 100vw;
   height: 100vh;
 
@@ -17,7 +16,7 @@
 }
 
 .content {
-  background-color: $background-color;
+  background-color: #E9E9E9;
   display: flex;
   flex-direction: column;
   align-items: center;
