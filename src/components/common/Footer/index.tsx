@@ -9,7 +9,11 @@ const Footer = () => {
       <div className={style.conteiner}>
         <div className={style.wrapperFooter}>
           <div className={style.info}>
-            <Link to="/" className={style.infoIcon}>
+            <Link
+              to="/"
+              target={"_blank"}
+              className={style.infoIcon}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="45"
@@ -28,7 +32,11 @@ const Footer = () => {
             <p>© STUDENT TIME, 2023</p>
           </div>
           <div className={style.sotialNetwork}>
-            <Link to="/" className={style.vk}>
+            <Link
+              to="https://vk.com/idart_k"
+              target={"_blank"}
+              className={style.vk}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="46"
@@ -42,7 +50,11 @@ const Footer = () => {
                 />
               </svg>
             </Link>
-            <Link to="/" className={style.facebook}>
+            <Link
+              to="/"
+              target={"_blank"}
+              className={style.facebook}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="44"
@@ -59,7 +71,11 @@ const Footer = () => {
                 />
               </svg>
             </Link>
-            <Link to="/" className={style.instagram}>
+            <Link
+              to="/"
+              target={"_blank"}
+              className={style.instagram}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="40"
