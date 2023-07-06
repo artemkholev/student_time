@@ -1,0 +1,15 @@
+@import '../../../assets/styles/main.scss';
+@import '../../../assets/styles/vars.scss';
+
+.container {
+  & > .mainSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    & > p {
+      color: black;
+      font-size: 34px;
+    }
+  }
+}
