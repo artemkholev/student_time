@@ -18,6 +18,17 @@
       height: 219px;
       & > .info {
         margin-left: 65px;
+        & > .infoIcon {
+          & > svg {
+            -webkit-transition: all 1s ease;
+            transition: all 1s ease;
+          }
+          & > svg:hover {
+            & > path {
+              fill: #00B3FF; 
+            }
+          }
+        }
       }
       & > .copyright {
         position: absolute;
@@ -31,15 +42,39 @@
         align-items: center;
         gap: 28px;
         margin-right: 72px;
-        // & > .vk {
-        //   & > svg {
-        //     -webkit-transition: all 1s ease;
-        //     transition: all 1s ease;
-        //   }
-        //   & > svg:hover {
-        //     fill: #00B3FF; 
-        //   }
-        // }
+        & > .vk {
+          & > svg {
+            -webkit-transition: all 1s ease;
+            transition: all 1s ease;
+          }
+          & > svg:hover {
+            & > path {
+              fill: #00B3FF; 
+            }
+          }
+        }
+        & > .facebook {
+          & > svg {
+              -webkit-transition: all 1s ease;
+              transition: all 1s ease;
+          }
+          & > svg:hover {
+            & > path {
+              stroke: #00B3FF;
+            }
+          }
+        }
+        & > .instagram {
+          & > svg {
+            -webkit-transition: all 1s ease;
+            transition: all 1s ease;
+          }
+          & > svg:hover {
+            & > path {
+              fill: #00B3FF; 
+            }
+          }
+        }
       }
     }
   }
