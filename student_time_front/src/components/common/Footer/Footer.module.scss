@@ -8,14 +8,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: $black;  
+    height: 100%;
     & > .wrapperFooter {
       position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      height: 219px;
+      height: 100%; 
+      background-color: $black;  
       & > .info {
         margin-left: 65px;
         & > .infoIcon {
