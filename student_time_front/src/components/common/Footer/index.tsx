@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import style from "./Footer.module.scss"
 
-const Footer = () => {
+const Footer = ({year}: any) => {
   return (
     <footer className={style.footer}>
       <div className={style.conteiner}>
@@ -29,7 +29,7 @@ const Footer = () => {
             </Link>
           </div>
           <div className={style.copyright}>
-            <p>© STUDENT TIME, 2023</p>
+            <p>© STUDENT TIME, {year}</p>
           </div>
           <div className={style.sotialNetwork}>
             <Link
