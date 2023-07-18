@@ -61,6 +61,10 @@
           border: 1px solid #FFF;
           background: #696969;
         }
+        & > .catalogUser:hover {
+          color: #00B3FF; 
+          border-color: #00B3FF;
+        }
         & > .loginUser {
           display: flex;
           width: 100px;
@@ -77,12 +81,19 @@
           border: 1px solid #FFF;
           background: #696969;
         }
+        & > .loginUser:hover {
+          color: #00B3FF; 
+          border-color: #00B3FF;
+        }
         & > .photoUser {
+          background: #D9D9D9;
           width: 60px;
           height: 60px;
-          flex-shrink: 0;
           border-radius: 60px;
-          background: #D9D9D9;
+          border-color: #FFF;
+        }
+        & > .photoUser:hover {
+          background-color: #00B3FF; 
         }
       }
     }
