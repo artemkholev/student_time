@@ -17,7 +17,7 @@ type ButtonPropsType = {
   icon: ReactElement | null;
 };
 
-export const Buttom = (props: ButtonPropsType) => {
+export const Button = (props: ButtonPropsType) => {
   const {
     clName,
     title,
@@ -49,7 +49,7 @@ export const Buttom = (props: ButtonPropsType) => {
       }}
       onClick={ handler }
     >
-        { title }
+      { title }
       {icon}
     </button>
   );

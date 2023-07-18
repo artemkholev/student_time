@@ -11,6 +11,6 @@ export const PageWrapper = () => (
     <main className={style.content}>
         <Outlet />
     </main>
-    <Footer />
+    <Footer year={new Date().getFullYear() } />
   </div>
 ); 

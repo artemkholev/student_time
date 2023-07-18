@@ -23,10 +23,10 @@ const Header = observer(() => {
           <Link to="/" className={style.logo}>STUDENT TIME</Link>
         
           <div className={style.userTabs}>
-            <Link to="/userCatalog" className={style.catalogUser}>
+            <Link to="/catalog" className={style.catalogUser}>
                 catalog
             </Link>
-            <Link to="/userLogin" className={style.loginUser}>
+            <Link to="/auth" className={style.loginUser}>
                 login
             </Link>
             <Link to="/userAccount" className={style.photoUser}>
