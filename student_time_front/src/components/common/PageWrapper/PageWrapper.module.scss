@@ -1,0 +1,23 @@
+@import '../../../assets/styles/main';
+
+.page_wrapper {
+  display: grid;
+  grid-template-areas:
+    'header'
+    'content'
+    'footer';
+  grid-template-rows: 171px auto 219px;
+  width: 100vw;
+  height: 100vh;
+
+  @media(max-width:768px) {
+    grid-template-rows: 56px auto 108px;
+  }
+}
+
+.content {
+  background-color: #E9E9E9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
