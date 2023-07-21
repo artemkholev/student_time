@@ -1,11 +1,11 @@
 
-.authorization {
+.registration {
   & > div > div > form {
     & > .headerRegAuth {
       position: relative;
       background-color: black;
       width: 100%;
-      height: 136px;
+      height: 110px;
       border-bottom: 3px solid #00B3FF;
       & > .closeWindow {
         position: absolute;
@@ -18,15 +18,14 @@
         font-weight: 500;
       }
     }
-    & > .noPassword {
-      color: var(--gray, #696969);
-      font-size: 23px;
-      text-decoration-line: underline;
-      width: 100%;
-      margin-left: 100px;
+    & > .agreement {
+      color: #696969;
+      font-family: Jacques Francois;
+      font-size: 14px;
+      font-weight: 400;
     }
     & > .listInputs {
-      margin: 57px 0 58px 0;
+      margin: 10px 0 20px 0;
       left: 50px;
       & > .error {
         margin-bottom: 16px;

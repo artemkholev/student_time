@@ -10,7 +10,7 @@ const Footer = ({year}: any) => {
         <div className={style.wrapperFooter}>
           <div className={style.info}>
             <Link
-              to="/"
+              to="https://art-lunch.ru/recipe/tonkie-bliny-na-moloke_foto/"
               target={"_blank"}
               className={style.infoIcon}
             >

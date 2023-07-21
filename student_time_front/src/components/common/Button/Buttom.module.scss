@@ -16,7 +16,7 @@
   color: #000000;
 
   &:hover {
-    background-color: #E0E5D6 !important;
-    color: #000000 !important;
+    color: var(--blue, #00B3FF) !important;
+    border-color: var(--blue, #00B3FF) !important;
   }
 }
