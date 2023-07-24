@@ -31,6 +31,7 @@ export const AuthPage = observer(() => {
     setUserPassword(password);
   };
 
+  //axios - отсылать запросы, redux - хранилище, reduxtoolkit - допы
   return (
     <div className={style.authorization}>
       <Form title="" supTitle="">

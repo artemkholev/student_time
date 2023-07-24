@@ -8,18 +8,26 @@ import { Form } from '../../common/Form';
 import { InputForRegAuth } from "../../common/Form/Input/InputForRegAuth"
 import { RegAuthButton } from "../../common/Button/RegAuthButton";
 import { Checkbox } from "../../common/Form/Input/Checkbox";
+import { IRegistrationUser } from '../../../models/IRegistrationUser';
  
-type AuthPageType = {
-  // handlerUserInput: (data: IAuthUser) => Promise<void> | void | null;
-  // handlerIsValid: (status: boolean) => void;
+type RegistrationPageType = {
+  handlerUserInput: (data: IRegistrationUser) => void;
+  handlerIsValid: (status: boolean) => void;
+  handlerStatusAgreement: (status: boolean) => void;
   handlerButton: () => void;
-  // error: string | undefined;
+  error: string | undefined;
 };
 
-export const RegistrationPage = observer(() => {
-  function handlerButton(data?: any): void | Promise<void> | null {
-    throw new Error("Function not implemented.");
-  }
+export const RegistrationPage = observer((
+  props: RegistrationPageType
+) => {
+  const {
+    handlerUserInput,
+    handlerIsValid,
+    handlerStatusAgreement,
+    handlerButton,
+    error,
+   } = props;
 
   const [userName, setUserName] = useState<string>('');
   const [userLastName, setUserSurname] = useState<string>('');
@@ -43,6 +51,9 @@ export const RegistrationPage = observer(() => {
   };
   const handlerRepeatPassword = (repeatPassword: string) => {
     setUserRepeatPassword(repeatPassword);
+  }
+  const handlerErrorMessage = (errorMessage: string) => {
+    setErrorMessage(errorMessage);
   }
 
   return (
@@ -90,13 +101,18 @@ export const RegistrationPage = observer(() => {
           {/* {error && <p className={style.error}>{error}</p>} */}
         </div>
 
-        <div className={style.agreement}>
-          <p>Создавая учетную запись, вы соглашаетесь<br />
-            <u>
-              <NavLink to="/">Условия использования и уведомление о конфиденциальности</NavLink>
-            </u>
-          </p>
-        </div>
+         <Checkbox
+          id={1}
+          text="Создавая учетную запись, вы соглашаетесь"
+          textLink="Условия использования и уведомление о конфиденциальности"
+          checked
+          handlerErrorMessage={handlerErrorMessage}
+          trackAgreement={handlerStatusAgreement}
+          handlerFilterValue={() => null}
+          handlerCheckedFlag={() => null}
+          deleteValue={() => null}
+          selectedFilters={null}
+        />
 
         <Button
           clName={null}
