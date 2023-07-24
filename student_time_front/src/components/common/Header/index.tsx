@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from 'react-router-dom';
 
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite';
@@ -23,14 +24,23 @@ const Header = observer(() => {
           <Link to="/" className={style.logo}>STUDENT TIME</Link>
         
           <div className={style.userTabs}>
-            <Link to="/catalog" className={style.catalogUser}>
+            <NavLink
+              to="/catalog"
+              className={({ isActive }) => `${isActive ? [style.active, style.catalogUser].join(' ') : style.catalogUser}`}
+            >
                 catalog
-            </Link>
-            <Link to="/auth" className={style.loginUser}>
+            </NavLink>
+            <NavLink
+              to="/auth" 
+              className={({ isActive }) => `${(isActive || document.location.pathname === "/reg" ) ? [style.active, style.loginUser].join(' ') : style.loginUser}`}
+            >
                 login
-            </Link>
-            <Link to="/userAccount" className={style.photoUser}>
-            </Link>
+            </NavLink>
+            <NavLink
+              to="/userAccount"
+              className={({ isActive }) => `${isActive ? [style.active, style.photoUser].join(' ') : style.photoUser}`}
+            >
+            </NavLink>
           </div>
         </div>
       </div>

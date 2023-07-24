@@ -1,0 +1,41 @@
+
+.containerRegAuth { 
+  position: absolute;
+  margin-left: 52px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  & > .auth {
+    width: 136px;
+    height: 28px;
+    border-radius: 10px 10px 50px 10px;
+    border: 3px solid #FFF;
+    background: var(--gray, #696969);
+
+    color: #FFF;
+    text-align: center;
+    font-family: Itim;
+    font-size: 21px;
+    font-weight: 400;
+  }
+  & > .registr {
+    width: 136px;
+    height: 28px;
+    border-radius: 50px 10px 10px 10px;
+    border: 3px solid #FFF;
+    background: var(--gray, #696969);
+
+    color: #FFF;
+    text-align: center;
+    font-family: Itim;
+    font-size: 21px;
+    font-weight: 400;
+  }
+
+  & > .active {
+    color: #00B3FF; 
+    border: 3px solid var(--blue, #00B3FF);
+  }
+}
