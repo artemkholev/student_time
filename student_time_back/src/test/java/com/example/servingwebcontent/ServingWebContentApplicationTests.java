@@ -1,10 +1,10 @@
-package site.student_time.MyFirstSite;
+package com.example.servingwebcontent;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MyFirstSiteApplicationTests {
+class ServingWebContentApplicationTests {
 
 	@Test
 	void contextLoads() {
