@@ -3,16 +3,17 @@
 <body>
     <div>
         <form method="post">
-            <input type="text" name="text" placeholder="Введите сообщение"/>
-            <input type="tag" name="tag" placeholder="Tag"/>
-            <button type="submit">отправить</button>
+            <input type="email" name="email" placeholder="input email"/> <br>
+            <input type="password" name="password" placeholder="input password"/> <br>
+            <button type="submit">send</button>
         </form>
     </div>
-    <div>Список сообщений</div>
+    <div>list of message:</div>
+    {{#info}}
     <div>
-        <b>{{id}}</b>
-        <span>{{text}}</span>
-        <i>{{tag}}</i>
+        <span>{{email}}</span>
+        <i>{{password}}</i>
     </div>
+    {{/info}}
 </body>
 </html>
