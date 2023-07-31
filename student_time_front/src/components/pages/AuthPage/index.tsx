@@ -10,29 +10,22 @@ import { InputForRegAuth } from "../../common/Form/Input/InputForRegAuth"
 import { RegAuthButton } from "../../common/Button/RegAuthButton";
  
 type AuthPageType = {
-  // handlerUserInput: (data: IAuthUser) => Promise<void> | void | null;
-  // handlerIsValid: (status: boolean) => void;
-  handlerButton: () => void;
-  // error: string | undefined;
+  handlerEmail: (value: string) => void | null;
+  handlerPassword: (value: string) => void | null;
+  handler: () => void | null | Promise<void>;
+  errorMessage: string;
+  handlerErrorMessageInput: (value: string) => void;
 };
 
-export const AuthPage = observer(() => {
-  function handlerButton(data?: any): void | Promise<void> | null {
-    throw new Error("Function not implemented.");
-  }
+export const AuthPage = observer((props: AuthPageType) => {
+  const { handlerEmail, handlerPassword, handler, errorMessage, handlerErrorMessageInput } = props;
+  
+  const [erMess, setErMas] = useState<string>('');
 
-  const [userEmail, setUserEmail] = useState<string>('');
-  const [userPassword, setUserPassword] = useState<string>('');
+  useEffect(() => {
+    setErMas(errorMessage);
+  }, [errorMessage]);
 
-  const handlerEmail = (email: string) => {
-    setUserEmail(email);
-  };
-
-  const handlerPassword = (password: string) => {
-    setUserPassword(password);
-  };
-
-  //axios - отсылать запросы, redux - хранилище, reduxtoolkit - допы
   return (
     <div className={style.authorization}>
       <Form title="" supTitle="">
@@ -59,7 +52,7 @@ export const AuthPage = observer(() => {
             autocomplete="on"
             handlerInput={handlerPassword}
           />
-          {/* {error && <p className={style.error}>{error}</p>} */}
+          {erMess && <span className={style.erMess}>{erMess}</span>}
         </div>
 
         <div className={style.noPassword}>Забыли пароль?</div>
@@ -67,7 +60,7 @@ export const AuthPage = observer(() => {
         <Button
           clName={null}
           title="Войти"
-          handler={handlerButton}
+          handler={handler}
           width="291px"
           height="67px"
           background="#000"
