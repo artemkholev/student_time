@@ -5,7 +5,7 @@ import { apiAxios } from "../network";
 
 export default class AuthService {
   static async login(email: string, password: string): Promise<AxiosResponse<AuthResponse>> {
-    return apiAxios.post<AuthResponse>('/login', { email, password });
+    return apiAxios.post<AuthResponse>('/auth', { email, password });
   }
   static async registration() {
     return;

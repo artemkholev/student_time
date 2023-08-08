@@ -8,7 +8,7 @@ import { Form } from '../../common/Form';
 import { InputForRegAuth } from "../../common/Form/Input/InputForRegAuth"
 import { RegAuthButton } from "../../common/Button/RegAuthButton";
 import { Checkbox } from "../../common/Form/Input/Checkbox";
-import { IRegistrationUser } from '../../../models/IRegistrationUser';
+import { IRegistrationUser } from "../../../models/IRegistrationUser";
  
 type RegistrationPageType = {
   handlerUserInput: (data: IRegistrationUser) => void;
@@ -116,7 +116,7 @@ export const RegistrationPage = observer((
 
         <Button
           clName={null}
-          title="Войти"
+          title="Зарегистрироваться"
           handler={handlerButton}
           width="291px"
           height="67px"

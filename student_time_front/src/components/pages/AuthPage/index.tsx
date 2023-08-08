@@ -22,9 +22,9 @@ export const AuthPage = observer((props: AuthPageType) => {
   
   const [erMess, setErMas] = useState<string>('');
 
-  useEffect(() => {
-    setErMas(errorMessage);
-  }, [errorMessage]);
+  // useEffect(() => {
+  //   setErMas(errorMessage);
+  // }, [errorMessage]);
 
   return (
     <div className={style.authorization}>

@@ -7,17 +7,17 @@ import { useAppSelector, useAppDispatch } from "../../hooks/storeHooks";
 import { getUser } from "../../store/slice/userSlice/userSlice";
 
 export const AuthContainer = () => {  
-  const [enteredEmail, setEnteredEmail] = useState<string>('');
-  const [enteredPassword, setEnteredPassword] = useState<string>('');
+  const [enteredEmail, setEnteredEmail] = useState('');
+  const [enteredPassword, setEnteredPassword] = useState('');
 
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [role, setRole] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [role, setRole] = useState('');
 
-  const userId = useAppSelector(selectUserId);
-  const authError = useAppSelector(selectAuthError);
-  const userRole = useAppSelector(selectUserRole);
+  // const userId = useAppSelector(selectUserId);
+  // const authError = useAppSelector(selectAuthError);
+  // const userRole = useAppSelector(selectUserRole);
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handlerEmail = (value: string) => {
@@ -27,43 +27,44 @@ export const AuthContainer = () => {
     setEnteredPassword(value);
   };
 
-  useEffect(() => {
-    dispatch(clearErrorMessage())
-  }, []);
+  // useEffect(() => {
+  //   dispatch(clearErrorMessage())
+  // }, []);
 
-  useEffect(() => {
-    if (userId) {
-      dispatch(getUser(userId));
-    }
-  }, [userId]);
+  // useEffect(() => {
+  //   if (userId) {
+  //     dispatch(getUser(userId));
+  //   }
+  // }, [userId]);
 
-  useEffect(() => {
-    if (userRole) {
-      setRole(userRole);
-    }
-  }, [userRole]);
+  // useEffect(() => {
+  //   if (userRole) {
+  //     setRole(userRole);
+  //   }
+  // }, [userRole]);
 
-  useEffect(() => {
-    if (role === 'admin') {
-      navigate('/ads');
-    } else if (role === 'user') {
-      navigate('/');
-    }
-  }, [role]);
+  // useEffect(() => {
+  //   if (role === 'admin') {
+  //     navigate('/ads');
+  //   } else if (role === 'user') {
+  //     navigate('/');
+  //   }
+  // }, [role]);
 
-  useEffect(() => {
-    setErrorMessage(authError)
-  }, [authError]);
+  // useEffect(() => {
+  //   setErrorMessage(authError)
+  // }, [authError]);
 
   const handlerErrorMessageInput = (value: string) => {
-    setErrorMessage(value);
+    // setErrorMessage(value);
   };
 
   const handler = () => {
-    console.log(errorMessage);
-    if (!errorMessage && enteredEmail && enteredPassword) {
-      dispatch(login({enteredEmail, enteredPassword}));
-    }
+    // console.log(errorMessage);
+    // if (!errorMessage && enteredEmail && enteredPassword) {
+    //   dispatch(login({enteredEmail, enteredPassword}));
+    // }
+    console.log('hello')
   };
 
   return (
