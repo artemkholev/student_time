@@ -8,23 +8,42 @@ import { Button } from '../../common/Button';
 import { Form } from '../../common/Form';
 import { InputForRegAuth } from "../../common/Form/Input/InputForRegAuth"
 import { RegAuthButton } from "../../common/Button/RegAuthButton";
+import { IAuthUser } from "../../../models/IAuthUser";
  
 type AuthPageType = {
-  handlerEmail: (value: string) => void | null;
-  handlerPassword: (value: string) => void | null;
+  handlerUserInput: (data: IAuthUser) => Promise<void> | void | null;
+  handlerIsValid: (status: boolean) => void;
   handler: () => void | null | Promise<void>;
   errorMessage: string;
   handlerErrorMessageInput: (value: string) => void;
 };
 
 export const AuthPage = observer((props: AuthPageType) => {
-  const { handlerEmail, handlerPassword, handler, errorMessage, handlerErrorMessageInput } = props;
+  const {handlerUserInput, handlerIsValid, handler, errorMessage, handlerErrorMessageInput } = props;
   
-  const [erMess, setErMas] = useState<string>('');
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [userPassword, setUserPassword] = useState<string>('');
 
-  // useEffect(() => {
-  //   setErMas(errorMessage);
-  // }, [errorMessage]);
+
+  useEffect(() => {
+    if (userPassword.length > 0 && userEmail.length > 0) {
+      handlerIsValid(true);
+    } else {
+      handlerIsValid(false);
+    }
+  }, [userPassword, userEmail]);
+
+  useEffect(() => {
+    handlerUserInput({ email: userEmail, password: userPassword });
+  }, [userEmail, userPassword]);
+
+  const handlerEmail = (email: string) => {
+    setUserEmail(email);
+  };
+
+  const handlerPassword = (password: string) => {
+    setUserPassword(password);
+  };
 
   return (
     <div className={style.authorization}>
@@ -52,7 +71,7 @@ export const AuthPage = observer((props: AuthPageType) => {
             autocomplete="on"
             handlerInput={handlerPassword}
           />
-          {erMess && <span className={style.erMess}>{erMess}</span>}
+          {errorMessage && <p className={style.error}>{errorMessage}</p>}
         </div>
 
         <div className={style.noPassword}>Забыли пароль?</div>

@@ -5,73 +5,76 @@ import { AuthPage } from "../../components/pages/AuthPage";
 import { login, selectUserId, selectAuthError, selectUserRole, clearErrorMessage } from "../../store/slice/authSlice/authSlice"
 import { useAppSelector, useAppDispatch } from "../../hooks/storeHooks";
 import { getUser } from "../../store/slice/userSlice/userSlice";
+import { IAuthUser } from "../../models/IAuthUser";
 
 export const AuthContainer = () => {  
-  const [enteredEmail, setEnteredEmail] = useState('');
-  const [enteredPassword, setEnteredPassword] = useState('');
-
+  const [userInput, setUserInput] = useState<IAuthUser>();
   const [errorMessage, setErrorMessage] = useState('');
+  const [isValid, setIsValid] = useState(false);
   const [role, setRole] = useState('');
 
-  // const userId = useAppSelector(selectUserId);
-  // const authError = useAppSelector(selectAuthError);
-  // const userRole = useAppSelector(selectUserRole);
+  const userId = useAppSelector(selectUserId);
+  const authError = useAppSelector(selectAuthError);
+  const userRole = useAppSelector(selectUserRole);
 
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const handlerEmail = (value: string) => {
-    setEnteredEmail(value);
-  };
-  const handlerPassword = (value: string) => {
-    setEnteredPassword(value);
-  };
 
   // useEffect(() => {
   //   dispatch(clearErrorMessage())
   // }, []);
 
-  // useEffect(() => {
-  //   if (userId) {
-  //     dispatch(getUser(userId));
-  //   }
-  // }, [userId]);
+  useEffect(() => {
+    if (userId) {
+      dispatch(getUser(userId));
+    }
+  }, [userId]);
 
-  // useEffect(() => {
-  //   if (userRole) {
-  //     setRole(userRole);
-  //   }
-  // }, [userRole]);
+  useEffect(() => {
+    if (userRole) {
+      setRole(userRole);
+    }
+  }, [userRole]);
 
-  // useEffect(() => {
-  //   if (role === 'admin') {
-  //     navigate('/ads');
-  //   } else if (role === 'user') {
-  //     navigate('/');
-  //   }
-  // }, [role]);
+  useEffect(() => {
+    if (role === 'admin') {
+      navigate('/ads');
+    } else if (role === 'user') {
+      navigate('/');
+    }
+  }, [role]);
 
-  // useEffect(() => {
-  //   setErrorMessage(authError)
-  // }, [authError]);
+  useEffect(() => {
+    setErrorMessage(authError)
+  }, [authError]);
 
   const handlerErrorMessageInput = (value: string) => {
     // setErrorMessage(value);
   };
 
-  const handler = () => {
-    // console.log(errorMessage);
-    // if (!errorMessage && enteredEmail && enteredPassword) {
-    //   dispatch(login({enteredEmail, enteredPassword}));
-    // }
-    console.log('hello')
+  const handlerUserInput = (userData: IAuthUser) => {
+    setUserInput(userData);
+  };
+
+  const handlerIsValid = (status: boolean) => {
+    setIsValid(status);
+  };
+
+  const handler = async () => {
+    if (isValid) {
+      await  dispatch(login({userInput}));
+    } else {
+      setErrorMessage('Заполните обязательные поля!');
+
+      setTimeout(() => setErrorMessage(''), 3000);
+    }
   };
 
   return (
     <div>
       <AuthPage
-        handlerEmail={handlerEmail}
-        handlerPassword={handlerPassword}
+        handlerUserInput={handlerUserInput}
+        handlerIsValid={handlerIsValid}
         handler={handler}
         errorMessage={errorMessage}
         handlerErrorMessageInput={handlerErrorMessageInput}

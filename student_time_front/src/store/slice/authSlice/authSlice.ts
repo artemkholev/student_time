@@ -1,19 +1,42 @@
-import axios, { Axios, AxiosError } from "axios";
+import axios, { AxiosError } from 'axios';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
 import { IUser } from '../../../models/IUser';
-import AuthService from "../../../services/AuthService";
-import { RootState } from "../../store"
-import { AuthResponse } from "../../../models/response/AuthResponse";
-import { API_URL } from "../../../network";
+import AuthService from '../../../services/AuthService';
+import { AuthResponse } from '../../../models/response/AuthResponse';
+import { API_URL } from '../../../network';
+import { RootState } from '../../store';
 
 interface ValidationErrors {
   errorMessage: string
-  feiled_errors:Record<string, string>
+  field_errors: Record<string, string>
 }
 
+// export const registration = createAsyncThunk(
+//   'user/registration',
+//   // eslint-disable-next-line consistent-return
+//   async (userData: any, { rejectWithValue }) => {
+//     try {
+//       const { name, lastName, email, password } = userData;
+
+//       const response = await AuthService.registration(name, lastName, email, password);
+
+//       localStorage.setItem('token', response.data.accessToken);
+
+//       return response.data.user;
+//     } catch (err:any) {
+//       const error: AxiosError<ValidationErrors> = err;
+//       if (!error.response) {
+//         throw err;
+//       }
+
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
+
 export const login = createAsyncThunk(
-  'user/login', 
+  'user/auth',
+  // eslint-disable-next-line consistent-return
   async (userData: any, { rejectWithValue }) => {
     try {
       const { enteredEmail, enteredPassword } = userData;
@@ -22,7 +45,7 @@ export const login = createAsyncThunk(
       localStorage.setItem('token', response.data.accessToken);
 
       return response.data.user;
-    } catch (err: any) {
+    } catch (err:any) {
       const error: AxiosError<ValidationErrors> = err;
       if (!error.response) {
         throw err;
@@ -33,8 +56,24 @@ export const login = createAsyncThunk(
   }
 );
 
+// export const logout = createAsyncThunk(
+//   'user/logout',
+//   // eslint-disable-next-line consistent-return
+//   async () => {
+//     try {
+//       await AuthService.logout();
+
+//       localStorage.removeItem('token');
+//     } catch (e:any) {
+//       console.log(e.message);
+//     }
+//   }
+// );
+
 export const checkAuth = createAsyncThunk(
   'user/checkAuth',
+
+  // eslint-disable-next-line consistent-return
   async () => {
     try {
       const response = await axios.get<AuthResponse>(`${API_URL}refresh`, { withCredentials: true });
@@ -42,15 +81,15 @@ export const checkAuth = createAsyncThunk(
       localStorage.setItem('token', response.data.accessToken);
 
       return response.data.user;
-    } catch (err: any) {
+    } catch (err:any) {
       console.log(err.message);
     }
   }
-); 
+);
 
 export interface UserState {
   user: IUser,
-  error: string;
+  error: string
 }
 
 const initialState: UserState = {
@@ -61,7 +100,6 @@ const initialState: UserState = {
   },
   error: ''
 };
-
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -85,7 +123,6 @@ export const authSlice = createSlice({
     // builder.addCase(registration.rejected, (state, action: { payload:any }) => {
     //   state.error = action.payload.message;
     // });
-
     builder.addCase(login.fulfilled, (state, action) => {
       state.user = {
         ...state.user,
@@ -96,7 +133,6 @@ export const authSlice = createSlice({
     builder.addCase(login.rejected, (state, action: { payload:any }) => {
       state.error = action.payload.message;
     });
-
     // builder.addCase(logout.fulfilled, (state) => {
     //   state.user = {
     //     id: 0,
@@ -104,12 +140,12 @@ export const authSlice = createSlice({
     //     role: ''
     //   } as IUser;
     // });
-    // builder.addCase(checkAuth.fulfilled, (state, action) => {
-    //   state.user = {
-    //     ...state.user,
-    //     ...action.payload
-    //   };
-    // });
+    builder.addCase(checkAuth.fulfilled, (state, action) => {
+      state.user = {
+        ...state.user,
+        ...action.payload
+      };
+    });
   },
 });
 

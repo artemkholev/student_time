@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import style from "./InputForRegAuth.module.scss"
 
@@ -15,6 +15,10 @@ export const InputForRegAuth = (props: PropsTypeInputForRegAuth) => {
 
   const [valueInput, setValueInput] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+   
+  useEffect(() => {
+    handlerInput(valueInput);
+  }, [valueInput]);
 
   return (
     <label htmlFor="input" className={style.container}>
