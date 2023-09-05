@@ -11,31 +11,30 @@ interface ValidationErrors {
   field_errors: Record<string, string>
 }
 
-// export const registration = createAsyncThunk(
-//   'user/registration',
-//   // eslint-disable-next-line consistent-return
-//   async (userData: any, { rejectWithValue }) => {
-//     try {
-//       const { name, lastName, email, password } = userData;
+export const registration = createAsyncThunk(
+  '/reg',
+  // eslint-disable-next-line consistent-return
+  async (userData: any, { rejectWithValue }) => {
+    try {
+      const { enteredEmail, enteredPassword } = userData;
+      const response = await AuthService.registration(enteredEmail, enteredPassword);
 
-//       const response = await AuthService.registration(name, lastName, email, password);
+      localStorage.setItem('token', response.data.accessToken);
 
-//       localStorage.setItem('token', response.data.accessToken);
+      return response.data.user;
+    } catch (err:any) {
+      const error: AxiosError<ValidationErrors> = err;
+      if (!error.response) {
+        throw err;
+      }
 
-//       return response.data.user;
-//     } catch (err:any) {
-//       const error: AxiosError<ValidationErrors> = err;
-//       if (!error.response) {
-//         throw err;
-//       }
-
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const login = createAsyncThunk(
-  'user/auth',
+  '/auth',
   // eslint-disable-next-line consistent-return
   async (userData: any, { rejectWithValue }) => {
     try {
@@ -113,16 +112,16 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // builder.addCase(registration.fulfilled, (state, action) => {
-    //   state.user = {
-    //     ...state.user,
-    //     ...action.payload
-    //   };
-    //   state.error = '';
-    // });
-    // builder.addCase(registration.rejected, (state, action: { payload:any }) => {
-    //   state.error = action.payload.message;
-    // });
+    builder.addCase(registration.fulfilled, (state, action) => {
+      state.user = {
+        ...state.user,
+        ...action.payload
+      };
+      state.error = '';
+    });
+    builder.addCase(registration.rejected, (state, action: { payload:any }) => {
+      state.error = action.payload.message;
+    });
     builder.addCase(login.fulfilled, (state, action) => {
       state.user = {
         ...state.user,

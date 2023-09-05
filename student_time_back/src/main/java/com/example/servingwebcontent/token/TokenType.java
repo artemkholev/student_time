@@ -1,5 +1,5 @@
 package com.example.servingwebcontent.token;
 
-public class Tolen {
-  
+public enum TokenType {
+  BEARER
 }

@@ -13,6 +13,8 @@
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "commonjs-variables-for-esmodules": "^1.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "mobx-react-lite": "^3.4.3",
     "observer": "^0.0.2",
     "react": "^18.2.0",

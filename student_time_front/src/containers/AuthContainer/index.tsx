@@ -20,9 +20,9 @@ export const AuthContainer = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   dispatch(clearErrorMessage())
-  // }, []);
+  useEffect(() => {
+    dispatch(clearErrorMessage())
+  }, []);
 
   useEffect(() => {
     if (userId) {
@@ -49,7 +49,7 @@ export const AuthContainer = () => {
   }, [authError]);
 
   const handlerErrorMessageInput = (value: string) => {
-    // setErrorMessage(value);
+    setErrorMessage(value);
   };
 
   const handlerUserInput = (userData: IAuthUser) => {
