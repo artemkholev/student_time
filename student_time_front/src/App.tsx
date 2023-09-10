@@ -1,9 +1,10 @@
 import React, {useEffect} from "react"
 
 import { Route, Routes } from 'react-router-dom';
+// import { Redirect } from 'react-router'
 
-import { useAppDispatch, useAppSelector } from './hooks/storeHooks';
-import { checkAuth, selectUserId } from './store/slice/authSlice/authSlice';
+import { useAppDispatch } from './hooks/storeHooks';
+import { checkAuth } from './store/slice/authSlice/authSlice';
 
 import { PageWrapper } from "./components/common/PageWrapper"
 import { AuthContainer } from "./containers/AuthContainer";
@@ -21,10 +22,11 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path='/' element={<PageWrapper />}>
+      {/* <Redirect from='/'  to='/api/v1' />  */}
+      <Route path='/api/v1' element={<PageWrapper />}>
         <Route index element={<MainContainer />} />
-        <Route path="auth" element={<AuthContainer />} />
-        <Route path="reg" element={<RegistrationContainer />} />
+        <Route path="auth/authenticate" element={<AuthContainer />} />
+        <Route path="auth/register" element={<RegistrationContainer />} />
       </Route>
     </Routes>
   );

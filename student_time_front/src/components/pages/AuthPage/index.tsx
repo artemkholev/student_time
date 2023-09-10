@@ -51,7 +51,7 @@ export const AuthPage = observer((props: AuthPageType) => {
         <div className={style.headerRegAuth}>
           <RegAuthButton />
            <NavLink
-              to="/"
+              to="/api/v1"
               className={style.closeWindow}
             >
               ×

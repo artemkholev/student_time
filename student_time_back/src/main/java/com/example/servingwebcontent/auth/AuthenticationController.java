@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@CrossOrigin(origins="http://localhost:5173")
-// @RequestMapping("/")
+@RequestMapping("/api/v1/auth") 
+@CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
   private final AuthenticationService service;
 
-  @PostMapping("/reg")
+  @PostMapping("/register")
   public ResponseEntity<AuthenticationResponse> register(
     @RequestBody RegisterRequest request
   ) {
     return ResponseEntity.ok(service.register(request));
   }
 
-  @PostMapping("/auth")
+  @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
     @RequestBody AuthenticationRequest request
   ) {

@@ -5,7 +5,7 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/student_time
+    url: jdbc:postgresql://localhost/student_time
     username: artem
     password: TV
     driver-class-name: org.postgresql.Driver
