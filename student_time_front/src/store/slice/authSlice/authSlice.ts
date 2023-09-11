@@ -12,7 +12,7 @@ interface ValidationErrors {
 }
 
 export const registration = createAsyncThunk(
-  '/api/v1/auth/register',
+  '/auth/register',
   // eslint-disable-next-line consistent-return
   async (userData: any, { rejectWithValue }) => {
     try {
@@ -34,7 +34,7 @@ export const registration = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  '/api/v1/auth/authenticate',
+  '/auth/authenticate',
   // eslint-disable-next-line consistent-return
   async (userData: any, { rejectWithValue }) => {
     try {

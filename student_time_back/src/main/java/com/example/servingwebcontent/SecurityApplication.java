@@ -20,7 +20,7 @@ public class SecurityApplication {
 	) {
 		return args -> {
 			var admin = RegisterRequest.builder()
-					.email("admin@mail.com")
+					.email("artemkholev@yandex.ru")
 					.password("password")
 					.role(ADMIN)
 					.build();

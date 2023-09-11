@@ -25,19 +25,19 @@ const Header = observer(() => {
         
           <div className={style.userTabs}>
             <NavLink
-              to="/api/v1/catalog"
+              to="/catalog"
               className={({ isActive }) => `${isActive ? [style.active, style.catalogUser].join(' ') : style.catalogUser}`}
             >
                 catalog
             </NavLink>
             <NavLink
-              to="/api/v1/auth/authenticate" 
+              to="/auth/authenticate" 
               className={({ isActive }) => `${(isActive || document.location.pathname === "/reg" ) ? [style.active, style.loginUser].join(' ') : style.loginUser}`}
             >
                 login
             </NavLink>
             <NavLink
-              to="/api/v1/userAccount"
+              to="/userAccount"
               className={({ isActive }) => `${isActive ? [style.active, style.photoUser].join(' ') : style.photoUser}`}
             >
             </NavLink>
