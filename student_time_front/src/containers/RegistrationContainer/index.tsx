@@ -1,41 +1,71 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQuery } from "@apollo/client"
 
 import { RegistrationPage } from "../../components/pages/RegistrationPage";
 import { IAuthUser } from "../../models/IAuthUser";
-import { GET_USER } from '../../querys/user-querys';
-import { AUTH_USER, REG_USER } from "../../querys/auth-querys";
 import { IRegistrationUser } from "../../models/IRegistrationUser";
+import { clearErrorMessage, registration, selectAuthError, selectUserRole } from "../../store/slice/authSlice/authSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 
 
 export const RegistrationContainer = () => {
   const [userInput, setUserInput] = useState<IRegistrationUser>();
   const [isValid, setIsValid] = useState(false);
   const [statusAgreement, setStatusAgreement] = useState(true);
-  // const [registrationUser, { data, error }] = useMutation(REG_USER, {
-  //   variables: { registrationUser: userInput },
-  // });
   const [errorMessage, setErrorMessage] = useState<string | undefined>('');
+ 
+  const [role, setRole] = useState('');
 
-  const handlerUserInput = (input: IRegistrationUser) => {
-    setUserInput(input);
-  }
-  const handlerIsValid = (status: boolean) => {
-    setIsValid(status);
-  }
+  const authError = useAppSelector(selectAuthError);
+  const userRole = useAppSelector(selectUserRole);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+ 
+
+  useEffect(() => {
+    dispatch(clearErrorMessage());
+  }, []);
+
+
+  useEffect(() => {
+    if (userRole) {
+      setRole(userRole);
+    }
+  }, [userRole]);
+
+  useEffect(() => {
+    if (role) {
+      navigate('/');
+    }
+  }, [role]);
+
+  useEffect(() => {
+    setErrorMessage(authError);
+  }, [authError]);
+
+
   const handlerButton = async () => {
     if (isValid && statusAgreement) {
-      // await registrationUser();
+      await dispatch(registration({ userInput }));
     } else {
-      setErrorMessage('Fill in the required fields!');
+      setErrorMessage('Заполните обязательные поля!');
 
       setTimeout(() => setErrorMessage(''), 3000);
     }
-  }
+  };
+
+  const handlerUserInput = (input: IRegistrationUser) => {
+    setUserInput(input);
+  };
+
+  const handlerIsValid = (status: boolean) => {
+    setIsValid(status);
+  };
+
   const handlerStatusAgreement = (status: boolean) => {
     setStatusAgreement(status);
-  }
+  };
 
   return (
     <div>

@@ -8,7 +8,7 @@ import { Form } from '../../common/Form';
 import { InputForRegAuth } from "../../common/Form/Input/InputForRegAuth"
 import { RegAuthButton } from "../../common/Button/RegAuthButton";
 import { Checkbox } from "../../common/Form/Input/Checkbox";
-import { IRegistrationUser } from '../../../models/IRegistrationUser';
+import { IRegistrationUser } from "../../../models/IRegistrationUser";
  
 type RegistrationPageType = {
   handlerUserInput: (data: IRegistrationUser) => void;
@@ -29,20 +29,40 @@ export const RegistrationPage = observer((
     error,
    } = props;
 
-  const [userName, setUserName] = useState<string>('');
-  const [userLastName, setUserSurname] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
   const [userRepeatPassword, setUserRepeatPassword] = useState<string>('');
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const handlerName = (name: string) => {
-    setUserName(name);
-  };
-  const handlerSurname = (surname: string) => {
-    setUserSurname(surname);
-  }
+  useEffect(() => {
+    if (
+      userPassword !== userRepeatPassword
+      && userPassword.length > 0
+      && userRepeatPassword.length > 0
+    ) {
+      setPasswordMatch(false);
+    } else {
+      setPasswordMatch(true);
+    }
+  }, [userPassword, userRepeatPassword]);
+
+  useEffect(() => {
+    handlerUserInput({
+      email: userEmail,
+      password: userPassword,
+    });
+  }, [userEmail, userPassword]);
+
+
+  useEffect(() => {
+    if (userPassword === userRepeatPassword && userPassword.length > 0) {
+      handlerIsValid(true);
+    } else {
+      handlerIsValid(false);
+    }
+  }, [userPassword, userRepeatPassword]);
+
   const handlerEmail = (email: string) => {
     setUserEmail(email);
   }
@@ -68,7 +88,7 @@ export const RegistrationPage = observer((
         </div>
 
         <div className={style.listInputs}>
-          <InputForRegAuth
+          {/* <InputForRegAuth
             placeholder="Name"
             type="text"
             autocomplete="on"
@@ -79,7 +99,7 @@ export const RegistrationPage = observer((
             type="text"
             autocomplete="on"
             handlerInput={handlerSurname}
-          />
+          /> */}
           <InputForRegAuth
             placeholder="Email"
             type="text"
@@ -98,7 +118,11 @@ export const RegistrationPage = observer((
             autocomplete="on"
             handlerInput={handlerRepeatPassword}
           />
-          {/* {error && <p className={style.error}>{error}</p>} */}
+           {(error && <p className={style.error}>{error}</p>)
+            || (!passwordMatch && (
+              <p className={style.error}>Пароли не совпадают!</p>
+            ))
+            || (errorMessage && <p className={style.error}>{errorMessage}</p>)}
         </div>
 
          <Checkbox
@@ -116,7 +140,7 @@ export const RegistrationPage = observer((
 
         <Button
           clName={null}
-          title="Войти"
+          title="Зарегистрироваться"
           handler={handlerButton}
           width="291px"
           height="67px"

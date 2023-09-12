@@ -1,65 +1,84 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQuery } from "@apollo/client"
 
 import { AuthPage } from "../../components/pages/AuthPage";
+import { login, selectUserId, selectAuthError, selectUserRole, clearErrorMessage } from "../../store/slice/authSlice/authSlice"
+import { useAppSelector, useAppDispatch } from "../../hooks/storeHooks";
+import { getUser } from "../../store/slice/userSlice/userSlice";
 import { IAuthUser } from "../../models/IAuthUser";
-import { GET_USER } from '../../querys/user-querys';
-import { AUTH_USER } from "../../querys/auth-querys";
 
+export const AuthContainer = () => {  
+  const [userInput, setUserInput] = useState<IAuthUser>();
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isValid, setIsValid] = useState(false);
+  const [role, setRole] = useState('');
 
-export const AuthContainer = () => {
-  // const [userInput, setUserInput] = useState<IAuthUser>();
-  // const [isValid, setIsValid] = useState(false);
-  // const [errorMessage, setErrorMessage] = useState<string | undefined>('');
-  // const [authUser, { data, error }] = useMutation(AUTH_USER, {
-  //   variables: { loginUser: userInput},
-  // })
-  // const user = useQuery(GET_USER);
+  const userId = useAppSelector(selectUserId);
+  const authError = useAppSelector(selectAuthError);
+  const userRole = useAppSelector(selectUserRole);
 
-  // const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   setErrorMessage(error?.message)
-  // }, [error]);
+  useEffect(() => {
+    dispatch(clearErrorMessage())
+  }, []);
 
-  // useEffect( () => {
-  //   if (data?.loginUser.accessToken) {
-  //     user.refetch();
+  useEffect(() => {
+    if (userId) {
+      dispatch(getUser(userId));
+    }
+  }, [userId]);
 
-  //     localStorage.setItem('token', data?.loginUser.accessToken);
+  useEffect(() => {
+    if (userRole) {
+      setRole(userRole);
+    }
+  }, [userRole]);
 
-  //     // authStore.handlerUserAuthorized(true);
+  useEffect(() => {
+    if (role === 'admin') {
+      navigate('/ads');
+    } else if (role === 'user') {
+      navigate('/');
+    }
+  }, [role]);
 
-  //     if (user.data?.getUser.role === 'admin') {
-  //       navigate('/admin_orders');
-  //     } else {
-  //       navigate('/');
-  //     }
-  //   }
-  // }, [data])
+  useEffect(() => {
+    setErrorMessage(authError)
+  }, [authError]);
 
-  // const handlerUserInput = (userData: IAuthUser) => {
-  //   setUserInput(userData);
-  // };
+  const handlerErrorMessageInput = (value: string) => {
+    setErrorMessage(value);
+  };
 
-  // const handlerIsValid = (status: boolean) => {
-  //   setIsValid(status);
-  // };
+  const handlerUserInput = (userData: IAuthUser) => {
+    setUserInput(userData);
+  };
 
-  // const handlerButton = async () => {
-  //   if (isValid) {
-  //     await authUser();
-  //   } else {
-  //     setErrorMessage('Заполните обязательные поля!');
+  const handlerIsValid = (status: boolean) => {
+    setIsValid(status);
+  };
 
-  //     setTimeout(() => setErrorMessage(''), 3000);
-  //   }
-  // };
+  const handler = async () => {
+    if (isValid) {
+      await  dispatch(login({userInput}));
+    } else {
+      setErrorMessage('Заполните обязательные поля!');
+
+      setTimeout(() => setErrorMessage(''), 3000);
+    }
+  };
 
   return (
     <div>
-      <AuthPage/>
+      <AuthPage
+        handlerUserInput={handlerUserInput}
+        handlerIsValid={handlerIsValid}
+        handler={handler}
+        errorMessage={errorMessage}
+        handlerErrorMessageInput={handlerErrorMessageInput}
+      />
     </div>
   );
 }

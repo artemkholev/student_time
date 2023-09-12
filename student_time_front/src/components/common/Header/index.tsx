@@ -31,7 +31,7 @@ const Header = observer(() => {
                 catalog
             </NavLink>
             <NavLink
-              to="/auth" 
+              to="/auth/authenticate" 
               className={({ isActive }) => `${(isActive || document.location.pathname === "/reg" ) ? [style.active, style.loginUser].join(' ') : style.loginUser}`}
             >
                 login

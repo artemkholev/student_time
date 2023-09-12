@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import style from ".//Checkbox.module.scss"
 import { Link } from "react-router-dom";
@@ -31,6 +31,37 @@ export const Checkbox = (props: CheckboxType) => {
   } = props;
 
   const [checkedValue, setCheckedValue] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    trackAgreement(checkedValue);
+  }, [checkedValue]);
+
+  useEffect(() => {
+    setCheckedValue(checked);
+  }, [checked]);
+
+  useEffect(() => {
+    if (selectedFilters?.category.find((el) => el === text)) {
+      setCheckedValue(true);
+    }
+    if (selectedFilters?.published.find((el) => el === text)) {
+      setCheckedValue(true);
+    }
+  }, [selectedFilters]);
+
+  useEffect(() => {
+    handlerErrorMessage(errorMessage);
+  }, [checkedValue]);
+
+  useEffect(() => {
+    if (checkedValue) {
+      setErrorMessage('Примите условия!');
+    } else {
+      setErrorMessage('');
+    }
+  }, [checkedValue]);
+
 
   const handler = () => {
     setCheckedValue(!checkedValue);
@@ -39,6 +70,22 @@ export const Checkbox = (props: CheckboxType) => {
       deleteValue(text);
     }
   };
+
+  useEffect(() => {
+    if (checkedValue) {
+      if (text === 'Да') {
+        handlerCheckedFlag(true);
+      }
+      if (text === 'Нет') {
+        handlerCheckedFlag(false);
+      }
+    }
+  }, [checkedValue]);
+
+  useEffect(() => {
+    handlerFilterValue(id, checkedValue);
+  }, [checkedValue]);
+
 
   return (
     <div className={style.container}>

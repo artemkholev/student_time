@@ -8,21 +8,34 @@ import { Button } from '../../common/Button';
 import { Form } from '../../common/Form';
 import { InputForRegAuth } from "../../common/Form/Input/InputForRegAuth"
 import { RegAuthButton } from "../../common/Button/RegAuthButton";
+import { IAuthUser } from "../../../models/IAuthUser";
  
 type AuthPageType = {
-  // handlerUserInput: (data: IAuthUser) => Promise<void> | void | null;
-  // handlerIsValid: (status: boolean) => void;
-  handlerButton: () => void;
-  // error: string | undefined;
+  handlerUserInput: (data: IAuthUser) => Promise<void> | void | null;
+  handlerIsValid: (status: boolean) => void;
+  handler: () => void | null | Promise<void>;
+  errorMessage: string;
+  handlerErrorMessageInput: (value: string) => void;
 };
 
-export const AuthPage = observer(() => {
-  function handlerButton(data?: any): void | Promise<void> | null {
-    throw new Error("Function not implemented.");
-  }
-
+export const AuthPage = observer((props: AuthPageType) => {
+  const {handlerUserInput, handlerIsValid, handler, errorMessage, handlerErrorMessageInput } = props;
+  
   const [userEmail, setUserEmail] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
+
+
+  useEffect(() => {
+    if (userPassword.length > 0 && userEmail.length > 0) {
+      handlerIsValid(true);
+    } else {
+      handlerIsValid(false);
+    }
+  }, [userPassword, userEmail]);
+
+  useEffect(() => {
+    handlerUserInput({ email: userEmail, password: userPassword });
+  }, [userEmail, userPassword]);
 
   const handlerEmail = (email: string) => {
     setUserEmail(email);
@@ -32,7 +45,6 @@ export const AuthPage = observer(() => {
     setUserPassword(password);
   };
 
-  //axios - отсылать запросы, redux - хранилище, reduxtoolkit - допы
   return (
     <div className={style.authorization}>
       <Form title="" supTitle="">
@@ -59,7 +71,7 @@ export const AuthPage = observer(() => {
             autocomplete="on"
             handlerInput={handlerPassword}
           />
-          {/* {error && <p className={style.error}>{error}</p>} */}
+          {errorMessage && <p className={style.error}>{errorMessage}</p>}
         </div>
 
         <div className={style.noPassword}>Забыли пароль?</div>
@@ -67,7 +79,7 @@ export const AuthPage = observer(() => {
         <Button
           clName={null}
           title="Войти"
-          handler={handlerButton}
+          handler={handler}
           width="291px"
           height="67px"
           background="#000"
