@@ -16,8 +16,9 @@ export const registration = createAsyncThunk(
   // eslint-disable-next-line consistent-return
   async (userData: any, { rejectWithValue }) => {
     try {
-      const { enteredEmail, enteredPassword } = userData;
-      const response = await AuthService.registration(enteredEmail, enteredPassword);
+      const { userInput } = userData;
+      console.log(userInput);
+      const response = await AuthService.registration(userInput.email, userInput.password);
 
       localStorage.setItem('token', response.data.accessToken);
 

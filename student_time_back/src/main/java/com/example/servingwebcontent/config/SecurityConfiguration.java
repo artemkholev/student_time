@@ -21,6 +21,7 @@ import static com.example.servingwebcontent.user.Permission.MANAGER_CREATE;
 import static com.example.servingwebcontent.user.Permission.MANAGER_DELETE;
 import static com.example.servingwebcontent.user.Permission.MANAGER_READ;
 import static com.example.servingwebcontent.user.Permission.MANAGER_UPDATE;
+import static com.example.servingwebcontent.user.Role.ADMIN;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -55,10 +56,10 @@ public class SecurityConfiguration {
                 "/webjars/**",
                 "/swagger-ui.html"
         )
-          .permitAll()
+        .permitAll()
 
 
-        // .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
+        .requestMatchers("/management/**").hasAnyRole(ADMIN.name())
 
 
         .requestMatchers(GET, "/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
@@ -67,19 +68,19 @@ public class SecurityConfiguration {
         .requestMatchers(DELETE, "/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
 
 
-       /* .requestMatchers("/admin/**").hasRole(ADMIN.name())
+       /* .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
 
-        .requestMatchers(GET, "/admin/**").hasAuthority(ADMIN_READ.name())
-        .requestMatchers(POST, "/admin/**").hasAuthority(ADMIN_CREATE.name())
-        .requestMatchers(PUT, "/admin/**").hasAuthority(ADMIN_UPDATE.name())
-        .requestMatchers(DELETE, "/admin/**").hasAuthority(ADMIN_DELETE.name())*/
+        .requestMatchers(GET, "/api/v1/admin/**").hasAuthority(ADMIN_READ.name())
+        .requestMatchers(POST, "/api/v1/admin/**").hasAuthority(ADMIN_CREATE.name())
+        .requestMatchers(PUT, "/api/v1/admin/**").hasAuthority(ADMIN_UPDATE.name())
+        .requestMatchers(DELETE, "/api/v1/admin/**").hasAuthority(ADMIN_DELETE.name())*/
 
 
         .anyRequest()
-          .authenticated()
+        .authenticated()
         .and()
-          .sessionManagement()
-          .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authenticationProvider(authenticationProvider)
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
