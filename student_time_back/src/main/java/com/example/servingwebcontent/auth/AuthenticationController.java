@@ -34,7 +34,7 @@ public class AuthenticationController {
     return ResponseEntity.ok(service.authenticate(request));
   }
 
-  @PostMapping("/refresh-token")
+  @PostMapping("/refresh")
   public void refreshToken(
       HttpServletRequest request,
       HttpServletResponse response

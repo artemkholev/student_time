@@ -85,8 +85,7 @@
           color: #00B3FF; 
           border-color: #00B3FF;
         }
-        
-        & > .active {
+        & > .loginUser.active {
           color: #00B3FF; 
           border-color: #00B3FF;
         }
@@ -98,13 +97,14 @@
           border-radius: 60px;
           border-color: #FFF;
         }
+       
         & > .photoUser:hover {
           background-color: #00B3FF; 
         }
-
-        & > .active {
+        & > .photoUser.active {
           background-color: #00B3FF;
         }
+
       }
     }
   }

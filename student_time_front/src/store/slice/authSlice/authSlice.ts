@@ -18,10 +18,9 @@ export const registration = createAsyncThunk(
     try {
       const { userInput } = userData;
       console.log(userInput);
-      const response = await AuthService.registration(userInput.email, userInput.password);
-
+      const response = await AuthService.registration(userInput.email, userInput.password, "USER");
       localStorage.setItem('token', response.data.accessToken);
-
+      console.log(response.data.user);
       return response.data.user;
     } catch (err:any) {
       const error: AxiosError<ValidationErrors> = err;
