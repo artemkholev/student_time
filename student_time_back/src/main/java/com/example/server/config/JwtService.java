@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.config;
+package com.example.server.config;
 
 
 import io.jsonwebtoken.Claims;

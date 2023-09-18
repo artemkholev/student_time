@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.demo;
+package com.example.server.demo;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.security.access.prepost.PreAuthorize;

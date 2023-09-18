@@ -1,6 +1,7 @@
-package com.example.servingwebcontent.auth;
+package com.example.server.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,12 @@ public class AuthenticationResponse {
   private String accessToken;
   @JsonProperty("refreshToken")
   private String refreshToken;
-  @JsonProperty("userResp")
-  private String userResp;
+
+  // // @JsonProperty("userResp")
+  // @JsonRootName(value = "userResp", namespace="userResp")
+  // public class UserWithRootNamespace {
+  //     public int id;
+  //     public String email;
+  //     public String role;
+  // }
 }

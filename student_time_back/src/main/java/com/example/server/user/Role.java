@@ -1,22 +1,22 @@
-package com.example.servingwebcontent.user;
+package com.example.server.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import static com.example.server.user.Permission.ADMIN_CREATE;
+import static com.example.server.user.Permission.ADMIN_DELETE;
+import static com.example.server.user.Permission.ADMIN_READ;
+import static com.example.server.user.Permission.ADMIN_UPDATE;
+import static com.example.server.user.Permission.MANAGER_CREATE;
+import static com.example.server.user.Permission.MANAGER_DELETE;
+import static com.example.server.user.Permission.MANAGER_READ;
+import static com.example.server.user.Permission.MANAGER_UPDATE;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static com.example.servingwebcontent.user.Permission.ADMIN_CREATE;
-import static com.example.servingwebcontent.user.Permission.ADMIN_DELETE;
-import static com.example.servingwebcontent.user.Permission.ADMIN_READ;
-import static com.example.servingwebcontent.user.Permission.ADMIN_UPDATE;
-import static com.example.servingwebcontent.user.Permission.MANAGER_CREATE;
-import static com.example.servingwebcontent.user.Permission.MANAGER_DELETE;
-import static com.example.servingwebcontent.user.Permission.MANAGER_READ;
-import static com.example.servingwebcontent.user.Permission.MANAGER_UPDATE;
 
 @RequiredArgsConstructor
 public enum Role {

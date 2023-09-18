@@ -1,6 +1,4 @@
-package com.example.servingwebcontent.config;
-
-import com.example.servingwebcontent.token.TokenRepository;
+package com.example.server.config;
 
 import jakarta.servlet.FilterChain;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.example.server.token.TokenRepository;
 
 import io.jsonwebtoken.io.IOException;
 import io.micrometer.common.lang.NonNull;

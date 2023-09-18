@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.user;
+package com.example.server.user;
 
 import java.util.Optional;
 

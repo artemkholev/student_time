@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.auth;
+package com.example.server.auth;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

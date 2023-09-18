@@ -1,6 +1,5 @@
-package com.example.servingwebcontent.user;
+package com.example.server.user;
 
-import com.example.servingwebcontent.token.Token;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -16,6 +15,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.example.server.token.Token;
 
 @Data
 @Builder

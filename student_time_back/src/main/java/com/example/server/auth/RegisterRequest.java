@@ -1,4 +1,6 @@
-package com.example.servingwebcontent.auth;
+package com.example.server.auth;
+
+import com.example.server.user.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
-
+public class RegisterRequest {
   private String email;
-  String password;
+  private String password;
+  private Role role;
 }

@@ -1,6 +1,7 @@
-package com.example.servingwebcontent.token;
+package com.example.server.token;
 
-import com.example.servingwebcontent.user.User;
+import com.example.server.user.User;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -30,6 +31,7 @@ public class Token {
   public String token;
 
   @Enumerated(EnumType.STRING)
+  @Builder.Default
   public TokenType tokenType = TokenType.BEARER;
 
   public boolean revoked;

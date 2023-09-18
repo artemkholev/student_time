@@ -1,12 +1,14 @@
-package com.example.servingwebcontent;
+package com.example.server;
 
-import com.example.servingwebcontent.auth.AuthenticationService;
-import com.example.servingwebcontent.auth.RegisterRequest;
+import static com.example.server.user.Role.ADMIN;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import static com.example.servingwebcontent.user.Role.ADMIN;
+
+import com.example.server.auth.AuthenticationService;
+import com.example.server.auth.RegisterRequest;
 
 @SpringBootApplication
 public class SecurityApplication {
