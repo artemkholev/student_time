@@ -3,11 +3,16 @@ import { UserPage } from "../../components/pages/UserPage";
 
 
 export const UserProfileContainer = () => {
-  
+  const handlerButton = () => {
+    console.log("exit");
+  };
+
 
   return (
     <div>
-      <UserPage />
+      <UserPage
+        handlerButton={handlerButton}
+      />
     </div>
   );
 }

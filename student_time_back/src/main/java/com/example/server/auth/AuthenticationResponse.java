@@ -16,12 +16,6 @@ public class AuthenticationResponse {
   private String accessToken;
   @JsonProperty("refreshToken")
   private String refreshToken;
-
-  // // @JsonProperty("userResp")
-  // @JsonRootName(value = "userResp", namespace="userResp")
-  // public class UserWithRootNamespace {
-  //     public int id;
-  //     public String email;
-  //     public String role;
-  // }
+  @JsonProperty("user")
+  private Object user;
 }

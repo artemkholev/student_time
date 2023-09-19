@@ -33,13 +33,19 @@ public class AuthenticationService {
         .password(passwordEncoder.encode(request.getPassword()))
         .role(request.getRole())
         .build();
+    
     var savedUser = repository.save(user);
+    var userData = new AuthResponse(user.getId(), user.getEmail(), user.getRole());
+    // return repository.findByEmail(user.getEmail())
+    //     .orElseThrow(() -> new UserNotFoundException("User by id " + " was not found"));
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
+
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
         .accessToken(jwtToken)
         .refreshToken(refreshToken)
+        .user(userData)
         .build();
   }
 

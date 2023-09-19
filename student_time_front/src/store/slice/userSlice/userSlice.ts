@@ -53,7 +53,7 @@ export const userSlice = createSlice({
 });
 
 export const { addEmail } = userSlice.actions;
-export const selectUserEmail = (state: RootState) => state.user.user.email;
-export const selectRole = (state: RootState) => state.user.user.role;
+// export const selectUserEmail = (state: RootState) => state.user.user.email;
+// export const selectRole = (state: RootState) => state.user.user.role;
 
 export default userSlice.reducer;
