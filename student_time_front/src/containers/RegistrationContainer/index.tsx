@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { RegistrationPage } from "../../components/pages/RegistrationPage";
-import { IAuthUser } from "../../models/IAuthUser";
 import { IRegistrationUser } from "../../models/IRegistrationUser";
 import { clearErrorMessage, registration, selectAuthError, selectUserRole } from "../../store/slice/authSlice/authSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
@@ -13,7 +12,6 @@ export const RegistrationContainer = () => {
   const [isValid, setIsValid] = useState(false);
   const [statusAgreement, setStatusAgreement] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | undefined>('');
- 
   const [role, setRole] = useState('');
 
   const authError = useAppSelector(selectAuthError);
@@ -36,6 +34,7 @@ export const RegistrationContainer = () => {
 
   useEffect(() => {
     if (role) {
+      
       navigate('/');
     }
   }, [role]);

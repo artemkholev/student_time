@@ -9,6 +9,7 @@ import { PageWrapper } from "./components/common/PageWrapper"
 import { AuthContainer } from "./containers/AuthContainer";
 import { MainContainer } from "./containers/MainContainer";
 import { RegistrationContainer } from "./containers/RegistrationContainer";
+import { UserProfileContainer } from "./containers/UserProfile";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ const App = () => {
         <Route index element={<MainContainer />} />
         <Route path="auth/authenticate" element={<AuthContainer />} />
         <Route path="auth/register" element={<RegistrationContainer />} />
+        <Route path="user" element={<UserProfileContainer />} />
       </Route>
     </Routes>
   );

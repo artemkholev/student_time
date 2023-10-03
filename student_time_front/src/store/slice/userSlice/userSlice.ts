@@ -26,46 +26,34 @@ export interface UserState {
 const initialState: UserState = {
   user: {
     id: 0,
-    name: '',
-    lastName: '',
     email: '',
-    role: ''
+    role: '',
   }
 };
 
-// export const userSlice = createSlice({
-//   name: 'user',
-//   initialState,
-//   reducers: {
-//     addFirstName: (state, action: PayloadAction<string>) => {
-//       state.user.name = action.payload;
-//     },
-//     addLastName: (state, action: PayloadAction<string>) => {
-//       state.user.lastName = action.payload;
-//     },
-//     addEmail: (state, action: PayloadAction<string>) => {
-//       state.user.email = action.payload;
-//     },
-//     addRole: (state, action: PayloadAction<string>) => {
-//       state.user.role = action.payload;
-//     }
-//   },
-//   extraReducers: (builder) => {
-//     builder.addCase(getUser.fulfilled, (state, action) => {
-//       state.user = {
-//         ...state.user,
-//         ...action.payload
-//       };
-//     });
-//   },
-// });
+export const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    addEmail: (state, action: PayloadAction<string>) => {
+      state.user.email = action.payload;
+    },
+    addRole: (state, action: PayloadAction<string>) => {
+      state.user.role = action.payload;
+    }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getUser.fulfilled, (state, action) => {
+      state.user = {
+        ...state.user,
+        ...action.payload
+      };
+    });
+  },
+});
 
-// export const { addFirstName, addLastName, addEmail } = userSlice.actions;
-
-// export const selectUserName = (state: RootState) => state.user.user.name;
-// export const selectUserLastName = (state: RootState) => state.user.user.lastName;
-// export const selectUserAge = (state: RootState) => state.user.user.age;
+export const { addEmail } = userSlice.actions;
 // export const selectUserEmail = (state: RootState) => state.user.user.email;
 // export const selectRole = (state: RootState) => state.user.user.role;
 
-// export default userSlice.reducer;
+export default userSlice.reducer;

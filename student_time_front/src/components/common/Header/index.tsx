@@ -32,13 +32,13 @@ const Header = observer(() => {
             </NavLink>
             <NavLink
               to="/auth/authenticate" 
-              className={({ isActive }) => `${(isActive || document.location.pathname === "/reg" ) ? [style.active, style.loginUser].join(' ') : style.loginUser}`}
+              className={({ isActive }) => `${(isActive || document.location.pathname === "/auth/register" ) ? [style.active, style.loginUser].join(' ') : style.loginUser}`}
             >
                 login
             </NavLink>
             <NavLink
-              to="/userAccount"
-              className={({ isActive }) => `${isActive ? [style.active, style.photoUser].join(' ') : style.photoUser}`}
+              to="/user"
+              className={({ isActive }) => `${(isActive) ? [style.active, style.photoUser].join(' ') : style.photoUser}`}
             >
             </NavLink>
           </div>
