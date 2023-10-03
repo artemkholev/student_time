@@ -34,6 +34,7 @@ export const RegistrationContainer = () => {
 
   useEffect(() => {
     if (role) {
+      
       navigate('/');
     }
   }, [role]);

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { NavLink } from "react-router-dom";
 
@@ -5,21 +6,24 @@ import style from './userPage.module.scss';
 import { Button } from '../../common/Button';
 import { Form } from '../../common/Form';
 import { RegAuthButton } from "../../common/Button/RegAuthButton";
-import { store } from "../../../store/store";
-import { useAppSelector } from "../../../hooks/storeHooks";
 import { selectUserEmail, selectUserRole } from "../../../store/slice/authSlice/authSlice";
+import { ModalWindowPage } from "../../common/modalWindowPage";
+import { useAppSelector } from "../../../hooks/storeHooks";
 
 type UserPageType = {
   handlerButton: () => void;
 };
 
 export const UserPage = observer((props: UserPageType) => {
-  const {
-    handlerButton,
-   } = props;
+  const { handlerButton } = props;
+  const [modal, setModal] = useState(true)
+  const closeModal = () => {
+    setModal(false);
+    window.location.replace(`http://localhost:5173/auth/authenticate`)
+  };
   
   return (
-    <div className={style.userProfile}>
+    <div className={style.userProfile}> 
       <div className={style.headerRegAuth}>
           <p className={style.userPage}>User Profile</p>
           <NavLink
@@ -70,7 +74,6 @@ export const UserPage = observer((props: UserPageType) => {
           />
         </div>
       </div>
-
       
       <div className={style.exitButton}>
         <Button
@@ -88,6 +91,28 @@ export const UserPage = observer((props: UserPageType) => {
             icon={null}
           />
       </div>
+
+      <ModalWindowPage
+        visible={modal}
+        title='Auth problem'
+        content={<p>User prblem. You need login!</p>}
+        footer={<Button
+          clName={null}
+          title="close"
+          handler={closeModal}
+          width="291px"
+          height="67px"
+          background="#000"
+          textColor="#FFF"
+          fontSize="24px"
+          fontWeight="400"
+          margin="50px 0 30px 150px"
+          borderRadius="10px"
+          icon={null}
+        />}
+        onClose={closeModal}
+        time={true}
+      />
     </div>
   );
 });

@@ -54,19 +54,19 @@ export const login = createAsyncThunk(
   }
 );
 
-// export const logout = createAsyncThunk(
-//   'user/logout',
-//   // eslint-disable-next-line consistent-return
-//   async () => {
-//     try {
-//       await AuthService.logout();
+export const logout = createAsyncThunk(
+  'logout',
+  // eslint-disable-next-line consistent-return
+  async () => {
+    try {
+      await AuthService.logout();
 
-//       localStorage.removeItem('token');
-//     } catch (e:any) {
-//       console.log(e.message);
-//     }
-//   }
-// );
+      localStorage.removeItem('token');
+    } catch (e:any) {
+      console.log(e.message);
+    }
+  }
+);
 
 export const checkAuth = createAsyncThunk(
   'user/checkAuth',
@@ -131,13 +131,13 @@ export const authSlice = createSlice({
     builder.addCase(login.rejected, (state, action: { payload:any }) => {
       state.error = action.payload.message;
     });
-    // builder.addCase(logout.fulfilled, (state) => {
-    //   state.user = {
-    //     id: 0,
-    //     email: '',
-    //     role: ''
-    //   } as IUser;
-    // });
+    builder.addCase(logout.fulfilled, (state) => {
+      state.user = {
+        id: 0,
+        email: '',
+        role: ''
+      } as IUser;
+    });
     builder.addCase(checkAuth.fulfilled, (state, action) => {
       state.user = {
         ...state.user,
