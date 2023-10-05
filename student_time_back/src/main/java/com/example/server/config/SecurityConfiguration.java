@@ -90,7 +90,7 @@ public class SecurityConfiguration {
                         authz -> {
                           try {
                             authz
-                          .requestMatchers("/auth/register", "/auth/authenticate").permitAll()
+                          .requestMatchers("/auth/**").permitAll()
                           .anyRequest()
                           .authenticated()
                           .and()
@@ -99,7 +99,7 @@ public class SecurityConfiguration {
                           .authenticationProvider(authenticationProvider)
                           .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                           .logout(logout -> logout
-                                  .logoutUrl("/logout")
+                                  .logoutUrl("/auth/logout")
                                   .addLogoutHandler(logoutHandler)
                                   .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext()));
                           } catch (Exception e) {

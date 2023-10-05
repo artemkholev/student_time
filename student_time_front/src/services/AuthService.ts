@@ -12,6 +12,6 @@ export default class AuthService {
   }
 
   static async logout(): Promise<void> {
-    return apiAxios.post('/logout');
+    return apiAxios.post('/auth/logout');
   }
 };

@@ -36,8 +36,7 @@ public class AuthenticationService {
     
     var savedUser = repository.save(user);
     var userData = new AuthResponse(user.getId(), user.getEmail(), user.getRole());
-    // return repository.findByEmail(user.getEmail())
-    //     .orElseThrow(() -> new UserNotFoundException("User by id " + " was not found"));
+    repository.findByEmail(request.getEmail()).orElseThrow();
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
 
@@ -58,6 +57,7 @@ public class AuthenticationService {
     );
     var user = repository.findByEmail(request.getEmail())
         .orElseThrow();
+    var userData = new AuthResponse(user.getId(), user.getEmail(), user.getRole());
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     revokeAllUserTokens(user);
@@ -65,6 +65,7 @@ public class AuthenticationService {
     return AuthenticationResponse.builder()
         .accessToken(jwtToken)
         .refreshToken(refreshToken)
+        .user(userData)
         .build();
   }
 
