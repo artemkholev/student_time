@@ -37,11 +37,10 @@ export const login = createAsyncThunk(
   // eslint-disable-next-line consistent-return
   async (userData: any, { rejectWithValue }) => {
     try {
-      const { enteredEmail, enteredPassword } = userData;
-      const response = await AuthService.login(enteredEmail, enteredPassword);
-
+      const { userInput } = userData;
+      console.log(userInput);
+      const response = await AuthService.login(userInput.email , userInput.password);
       localStorage.setItem('token', response.data.accessToken);
-
       return response.data.user;
     } catch (err:any) {
       const error: AxiosError<ValidationErrors> = err;
@@ -55,7 +54,7 @@ export const login = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk(
-  'logout',
+  '/auth/logout',
   // eslint-disable-next-line consistent-return
   async () => {
     try {
@@ -69,12 +68,12 @@ export const logout = createAsyncThunk(
 );
 
 export const checkAuth = createAsyncThunk(
-  'user/checkAuth',
+  '/auth/refresh',
 
   // eslint-disable-next-line consistent-return
   async () => {
     try {
-      const response = await axios.get<AuthResponse>(`${API_URL}refresh`, { withCredentials: true });
+      const response = await axios.get<AuthResponse>(`/auth/refresh`, { withCredentials: true });
 
       localStorage.setItem('token', response.data.accessToken);
 

@@ -16,7 +16,7 @@ type UserPageType = {
 
 export const UserPage = observer((props: UserPageType) => {
   const { handlerButton } = props;
-  const [modal, setModal] = useState(true)
+  const [modal, setModal] = useState(!useAppSelector(selectUserRole))
   const closeModal = () => {
     setModal(false);
     window.location.replace(`http://localhost:5173/auth/authenticate`)

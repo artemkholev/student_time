@@ -1,0 +1,1 @@
+Small functionality, front + back. Authorization elements and the main page with navigation are used on the front. The tank uses the functionality of processing requests from the user related to authorization. There is a JWT token model on the tank with a connected database.

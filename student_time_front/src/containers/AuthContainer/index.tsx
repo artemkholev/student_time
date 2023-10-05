@@ -37,9 +37,9 @@ export const AuthContainer = () => {
   }, [userRole]);
 
   useEffect(() => {
-    if (role === 'admin') {
+    if (role === 'ADMIN') {
       navigate('/ads');
-    } else if (role === 'user') {
+    } else if (role === 'USER') {
       navigate('/');
     }
   }, [role]);
@@ -62,7 +62,7 @@ export const AuthContainer = () => {
 
   const handler = async () => {
     if (isValid) {
-      await  dispatch(login({userInput}));
+      await  dispatch(login( {userInput} ));
     } else {
       setErrorMessage('Заполните обязательные поля!');
 

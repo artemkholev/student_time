@@ -10,15 +10,12 @@ import { selectUserEmail } from "../../store/slice/authSlice/authSlice";
 export const UserProfileContainer = () => {
   const dispatch = useAppDispatch();
 
-  const [auth, setAuth] = useState(false);
-
-  useEffect(() => {
-    console.log(auth);
-  }, []);
+  const [auth, setAuth] = useState(useAppSelector(selectUserEmail));
 
   const handlerButton = async () => {
-    if (useAppSelector(selectUserEmail))
+    if (auth) {
       await dispatch(logout());
+    } 
   };
 
 
