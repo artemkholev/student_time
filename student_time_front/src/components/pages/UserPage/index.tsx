@@ -6,19 +6,21 @@ import style from './userPage.module.scss';
 import { Button } from '../../common/Button';
 import { Form } from '../../common/Form';
 import { RegAuthButton } from "../../common/Button/RegAuthButton";
-import { selectUserEmail, selectUserRole } from "../../../store/slice/authSlice/authSlice";
+import { selectUserIsAuth, selectUserRole } from "../../../store/slice/authSlice/authSlice";
 import { ModalWindowPage } from "../../common/modalWindowPage";
 import { useAppSelector } from "../../../hooks/storeHooks";
 
 type UserPageType = {
   handlerButton: () => void;
+  userEmail: String;
+  userRole: String;
 };
 
 export const UserPage = observer((props: UserPageType) => {
-  const { handlerButton } = props;
-  const [modal, setModal] = useState(!useAppSelector(selectUserRole))
+  const { handlerButton, userEmail, userRole } = props;
+  const [modal, setModal] = useState(false);
   const closeModal = () => {
-    setModal(false);
+    setModal(true);
     window.location.replace(`http://localhost:5173/auth/authenticate`)
   };
   
@@ -39,8 +41,8 @@ export const UserPage = observer((props: UserPageType) => {
 
         </div>
         <div className={style.info}>
-          <p className={style.email}>{useAppSelector(selectUserEmail)}</p>
-          <p className={style.vacancy}>{useAppSelector(selectUserRole)}</p>
+          <p className={style.email}>{userEmail}</p>
+          <p className={style.vacancy}>{userEmail}</p>
           <p className={style.time}>Eastern European Time (EET), Cairo UTC +3</p>
         </div>
         <div className={style.button}>

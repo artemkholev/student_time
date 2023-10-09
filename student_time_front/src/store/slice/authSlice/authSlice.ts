@@ -67,13 +67,13 @@ export const logout = createAsyncThunk(
   }
 );
 
-export const checkAuth = createAsyncThunk(
+export const refresh = createAsyncThunk(
   '/auth/refresh',
 
   // eslint-disable-next-line consistent-return
   async () => {
     try {
-      const response = await axios.get<AuthResponse>(`/auth/refresh`, { withCredentials: true });
+      const response = await axios.post<AuthResponse>('/auth/refresh', { withCredentials: true });
 
       localStorage.setItem('token', response.data.accessToken);
 
@@ -91,8 +91,7 @@ export interface UserState {
 
 const initialState: UserState = {
   user: {
-    id: 0,
-    email: '',
+    isAuth: false,
     role: ''
   },
   error: ''
@@ -102,9 +101,6 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    addUserId: (state, action: PayloadAction<number>) => {
-      state.user.id = action.payload;
-    },
     clearErrorMessage: (state) => {
       state.error = '';
     },
@@ -132,12 +128,11 @@ export const authSlice = createSlice({
     });
     builder.addCase(logout.fulfilled, (state) => {
       state.user = {
-        id: 0,
-        email: '',
+        isAuth: false,
         role: ''
       } as IUser;
     });
-    builder.addCase(checkAuth.fulfilled, (state, action) => {
+    builder.addCase(refresh.fulfilled, (state, action) => {
       state.user = {
         ...state.user,
         ...action.payload
@@ -146,10 +141,9 @@ export const authSlice = createSlice({
   },
 });
 
-export const { addUserId, clearErrorMessage } = authSlice.actions;
+export const { clearErrorMessage } = authSlice.actions;
 
-export const selectUserId = (state: RootState) => state.auth.user.id;
-export const selectUserEmail = (state: RootState) => state.auth.user.email;
+export const selectUserIsAuth = (state: RootState) => state.auth.user.isAuth;
 export const selectUserRole = (state: RootState) => state.auth.user.role;
 export const selectAuthError = (state: RootState) => state.auth.error;
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { AuthPage } from "../../components/pages/AuthPage";
-import { login, selectUserId, selectAuthError, selectUserRole, clearErrorMessage } from "../../store/slice/authSlice/authSlice"
+import { login, selectAuthError, selectUserRole, clearErrorMessage } from "../../store/slice/authSlice/authSlice"
 import { useAppSelector, useAppDispatch } from "../../hooks/storeHooks";
 import { getUser } from "../../store/slice/userSlice/userSlice";
 import { IAuthUser } from "../../models/IAuthUser";
@@ -13,7 +13,6 @@ export const AuthContainer = () => {
   const [isValid, setIsValid] = useState(false);
   const [role, setRole] = useState('');
 
-  const userId = useAppSelector(selectUserId);
   const authError = useAppSelector(selectAuthError);
   const userRole = useAppSelector(selectUserRole);
 
@@ -23,12 +22,6 @@ export const AuthContainer = () => {
   useEffect(() => {
     dispatch(clearErrorMessage())
   }, []);
-
-  useEffect(() => {
-    if (userId) {
-      dispatch(getUser(userId));
-    }
-  }, [userId]);
 
   useEffect(() => {
     if (userRole) {

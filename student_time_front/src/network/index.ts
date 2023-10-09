@@ -1,7 +1,6 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import { useAppDispatch } from '../hooks/storeHooks';
 import { AuthResponse } from '../models/response/AuthResponse';
-import { addUserId } from '../store/slice/authSlice/authSlice';
 
 export const API_URL = 'http://localhost:8080/';
 
@@ -27,11 +26,8 @@ apiAxios.interceptors.response.use((config) => config, async (error) => {
     try {
       const dispatch = useAppDispatch();
 
-      const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
-
+      const response = await axios.post<AuthResponse>(`${API_URL}/auth/refresh`, { withCredentials: true });
       localStorage.setItem('token', response.data.accessToken);
-
-      dispatch(addUserId(response.data.user.id));
 
       return apiAxios.request(originalRequest);
     } catch (e:any) {

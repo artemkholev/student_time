@@ -3,7 +3,7 @@ import React, {useEffect} from "react"
 import { Route, Routes } from 'react-router-dom';
 
 import { useAppDispatch } from './hooks/storeHooks';
-import { checkAuth } from './store/slice/authSlice/authSlice';
+import { refresh } from './store/slice/authSlice/authSlice';
 
 import { PageWrapper } from "./components/common/PageWrapper"
 import { AuthContainer } from "./containers/AuthContainer";
@@ -16,7 +16,7 @@ const App = () => {
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      dispatch(checkAuth());
+      dispatch(refresh());
     }
   }, []);
 

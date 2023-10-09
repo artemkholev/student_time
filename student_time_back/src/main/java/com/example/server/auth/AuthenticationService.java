@@ -7,6 +7,9 @@ import com.example.server.token.TokenType;
 import com.example.server.user.User;
 import com.example.server.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.security.auth.message.AuthException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -26,46 +29,77 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
+  private final HttpServletResponse response;
 
-  public AuthenticationResponse register(RegisterRequest request) {
-    var user = User.builder()
-        .email(request.getEmail())
-        .password(passwordEncoder.encode(request.getPassword()))
-        .role(request.getRole())
-        .build();
+  // public AuthenticationResponse register(RegisterRequest request) {
+  //   var user = User.builder()
+  //       .email(request.getEmail())
+  //       .password(passwordEncoder.encode(request.getPassword()))
+  //       .role(request.getRole())
+  //       .build();
     
-    var savedUser = repository.save(user);
-    var userData = new AuthResponse(user.getId(), user.getEmail(), user.getRole());
-    repository.findByEmail(request.getEmail()).orElseThrow();
-    var jwtToken = jwtService.generateToken(user);
-    var refreshToken = jwtService.generateRefreshToken(user);
+  //   var savedUser = repository.save(user);
+  //   repository.findByEmail(request.getEmail()).orElseThrow();
+  //   var jwtToken = jwtService.generateToken(user);
+  //   var refreshToken = jwtService.generateRefreshToken(user);
+  //   saveUserToken(savedUser, jwtToken);
 
-    saveUserToken(savedUser, jwtToken);
-    return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
-        .refreshToken(refreshToken)
-        .user(userData)
+  //   var userData = new AuthResponseUser(true, user.getRole());
+
+  //   Cookie cookie = new Cookie("refreshToken", refreshToken);
+  //   // response.addCookie(cookie);
+
+  //   return AuthenticationResponse.builder()
+  //       .accessToken(jwtToken)
+  //       .userResponse(userData)
+  //       .build();
+  // }
+
+
+  public void register(
+            RegisterRequest request,
+            HttpServletResponse response
+  ) throws IOException {
+    var user = User.builder()
+      .email(request.getEmail())
+      .password(passwordEncoder.encode(request.getPassword()))
+      .role(request.getRole())
+      .build();
+  
+      repository.findByEmail(request.getEmail()).orElseThrow();
+
+    var savedUser = repository.save(user);
+    var accessToken = jwtService.generateToken(user);
+    var refreshToken = jwtService.generateRefreshToken(user);
+    saveUserToken(savedUser, accessToken);
+
+    var userData = new AuthResponseUser(true, user.getRole());
+
+    var authResponse = AuthenticationResponse.builder()
+        .accessToken(accessToken)
+        .userResponse(userData)
         .build();
+
+    Cookie cookie = new Cookie("refreshToken", refreshToken);
+    response.addCookie(cookie);
+    new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+    response.setHeader("r", refreshToken);
   }
 
-  public AuthenticationResponse authenticate(AuthenticationRequest request) {
+  public AuthenticationResponse authenticate(AuthenticationRequest request) throws AuthException {
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             request.getEmail(),
             request.getPassword()
         )
     );
-    var user = repository.findByEmail(request.getEmail())
-        .orElseThrow();
-    var userData = new AuthResponse(user.getId(), user.getEmail(), user.getRole());
+    var user = repository.findByEmail(request.getEmail()).orElseThrow(() -> new AuthException("Пользователь не найден"));
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
     return AuthenticationResponse.builder()
         .accessToken(jwtToken)
-        .refreshToken(refreshToken)
-        .user(userData)
         .build();
   }
 
@@ -112,9 +146,9 @@ public class AuthenticationService {
         saveUserToken(user, accessToken);
         var authResponse = AuthenticationResponse.builder()
                 .accessToken(accessToken)
-                .refreshToken(refreshToken)
                 .build();
         new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+        response.setHeader("r", refreshToken);
       }
     }
   }

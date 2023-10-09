@@ -16,17 +16,17 @@ public class SecurityApplication {
 		SpringApplication.run(SecurityApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner commandLineRunner(
-			AuthenticationService service
-	) {
-		return args -> {
-			var admin = RegisterRequest.builder()
-					.email("artemkholev@yandex.ru")
-					.password("password")
-					.role(ADMIN)
-					.build();
-			System.out.println("Admin token: " + service.register(admin).getAccessToken());
-		};
-	}
+	// @Bean
+	// public CommandLineRunner commandLineRunner(
+	// 		AuthenticationService service
+	// ) {
+	// 	return args -> {
+	// 		var admin = RegisterRequest.builder()
+	// 				.email("artemkholev@yandex.ru")
+	// 				.password("password")
+	// 				.role(ADMIN)
+	// 				.build();
+	// 		System.out.println("Admin token: " + service.register(admin).getAccessToken());
+	// 	};
+	// }
 }
