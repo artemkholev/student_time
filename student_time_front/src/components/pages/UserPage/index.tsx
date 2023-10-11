@@ -14,13 +14,14 @@ type UserPageType = {
   handlerButton: () => void;
   userEmail: String;
   userRole: String;
+  isAuth: boolean;
 };
 
 export const UserPage = observer((props: UserPageType) => {
-  const { handlerButton, userEmail, userRole } = props;
-  const [modal, setModal] = useState(false);
+  const { handlerButton, userEmail, userRole, isAuth } = props;
+  const [modal, setModal] = useState(!isAuth);
   const closeModal = () => {
-    setModal(true);
+    setModal(false);
     window.location.replace(`http://localhost:5173/auth/authenticate`)
   };
   
@@ -42,7 +43,7 @@ export const UserPage = observer((props: UserPageType) => {
         </div>
         <div className={style.info}>
           <p className={style.email}>{userEmail}</p>
-          <p className={style.vacancy}>{userEmail}</p>
+          <p className={style.vacancy}>{useAppSelector(selectUserRole)}</p>
           <p className={style.time}>Eastern European Time (EET), Cairo UTC +3</p>
         </div>
         <div className={style.button}>

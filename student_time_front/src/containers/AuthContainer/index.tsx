@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { AuthPage } from "../../components/pages/AuthPage";
 import { login, selectAuthError, selectUserRole, clearErrorMessage } from "../../store/slice/authSlice/authSlice"
 import { useAppSelector, useAppDispatch } from "../../hooks/storeHooks";
-import { getUser } from "../../store/slice/userSlice/userSlice";
 import { IAuthUser } from "../../models/IAuthUser";
 
 export const AuthContainer = () => {  

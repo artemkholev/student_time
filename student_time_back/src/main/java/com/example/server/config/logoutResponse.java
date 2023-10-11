@@ -1,4 +1,4 @@
-package com.example.server.auth;
+package com.example.server.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
-  @JsonProperty("accessToken")
-  private String accessToken;
-  @JsonProperty("userResponse")
-  private AuthResponseUser userResponse;
+public class logoutResponse {
+  @JsonProperty("logout")
+  private boolean logout;
 }

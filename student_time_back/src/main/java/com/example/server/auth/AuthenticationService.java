@@ -29,51 +29,29 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
-  private final HttpServletResponse response;
-
-  // public AuthenticationResponse register(RegisterRequest request) {
-  //   var user = User.builder()
-  //       .email(request.getEmail())
-  //       .password(passwordEncoder.encode(request.getPassword()))
-  //       .role(request.getRole())
-  //       .build();
-    
-  //   var savedUser = repository.save(user);
-  //   repository.findByEmail(request.getEmail()).orElseThrow();
-  //   var jwtToken = jwtService.generateToken(user);
-  //   var refreshToken = jwtService.generateRefreshToken(user);
-  //   saveUserToken(savedUser, jwtToken);
-
-  //   var userData = new AuthResponseUser(true, user.getRole());
-
-  //   Cookie cookie = new Cookie("refreshToken", refreshToken);
-  //   // response.addCookie(cookie);
-
-  //   return AuthenticationResponse.builder()
-  //       .accessToken(jwtToken)
-  //       .userResponse(userData)
-  //       .build();
-  // }
-
 
   public void register(
             RegisterRequest request,
             HttpServletResponse response
-  ) throws IOException {
+  ) throws IOException, AuthException {
     var user = User.builder()
       .email(request.getEmail())
       .password(passwordEncoder.encode(request.getPassword()))
       .role(request.getRole())
       .build();
   
-      repository.findByEmail(request.getEmail()).orElseThrow();
+    var findEmail = repository.findByEmail(request.getEmail());
+    if (!findEmail.isEmpty()) {
+       throw new AuthException("Такой пользователь уже есть");
+    }
 
     var savedUser = repository.save(user);
     var accessToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, accessToken);
 
-    var userData = new AuthResponseUser(true, user.getRole());
+    boolean isAuth = true;
+    var userData = new AuthResponseUser(isAuth, user.getRole());
 
     var authResponse = AuthenticationResponse.builder()
         .accessToken(accessToken)
@@ -86,7 +64,10 @@ public class AuthenticationService {
     response.setHeader("r", refreshToken);
   }
 
-  public AuthenticationResponse authenticate(AuthenticationRequest request) throws AuthException {
+  public void authenticate(
+            AuthenticationRequest request,
+            HttpServletResponse response
+  ) throws IOException, AuthException { 
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             request.getEmail(),
@@ -94,13 +75,22 @@ public class AuthenticationService {
         )
     );
     var user = repository.findByEmail(request.getEmail()).orElseThrow(() -> new AuthException("Пользователь не найден"));
-    var jwtToken = jwtService.generateToken(user);
+    var accessToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     revokeAllUserTokens(user);
-    saveUserToken(user, jwtToken);
-    return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
-        .build();
+    saveUserToken(user, accessToken);
+
+    boolean isAuth = true;
+    var userData = new AuthResponseUser(isAuth, user.getRole());
+    var authResponse = AuthenticationResponse.builder()
+      .accessToken(accessToken)
+      .userResponse(userData)
+      .build();
+
+    Cookie cookie = new Cookie("refreshToken", refreshToken);
+    response.addCookie(cookie);
+    new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+    response.setHeader("r", refreshToken);
   }
 
   private void saveUserToken(User user, String jwtToken) {
@@ -132,7 +122,8 @@ public class AuthenticationService {
     final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
     final String refreshToken;
     final String userEmail;
-    if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
+    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+      System.out.println("Error");
       return;
     }
     refreshToken = authHeader.substring(7);

@@ -10,43 +10,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.server.config.LogoutService;
 
 import java.io.IOException;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", allowCredentials = "true")
+// @CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", allowCredentials = "true")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
   private final AuthenticationService service;
+  // private final LogoutService serviceLogout;
 
-  // @PostMapping("/register")
-  // public ResponseEntity<AuthenticationResponse> register(
-  //   @RequestBody RegisterRequest request
-  // ) {
-  //   return ResponseEntity.ok(service.register(request));
-  // }
-
-  
   @PostMapping("/register")
-  public void register(
+  public void registerUser(
       @RequestBody RegisterRequest request,
-      HttpServletResponse response
-  ) throws IOException {
+      HttpServletResponse response) throws IOException, AuthException {
     service.register(request, response);
   }
 
   @PostMapping("/authenticate")
-  public ResponseEntity<AuthenticationResponse> authenticate(
-      @RequestBody AuthenticationRequest request) throws AuthException {
-    return ResponseEntity.ok(service.authenticate(request));
+  public void authenticateUser(
+      @RequestBody AuthenticationRequest request,
+      HttpServletResponse response
+  ) throws IOException, AuthException {
+    service.authenticate(request, response);
   }
 
   @PostMapping("/refresh")
-  public void refreshToken(
+  public void refreshTokenUser(
       HttpServletRequest request,
       HttpServletResponse response) throws IOException {
     service.refreshToken(request, response);
   }
+  
+  // @PostMapping("/logout")
+  // public void logoutUser(
+  //     HttpServletRequest request,
+  //     HttpServletResponse response) throws IOException {
+  //   serviceLogout.logout(request, response, null);
+  // }
 }

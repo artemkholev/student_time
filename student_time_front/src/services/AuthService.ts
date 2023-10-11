@@ -1,11 +1,13 @@
 import axios, { AxiosResponse } from "axios";
 
 import { AuthResponse } from "./../models/response/AuthResponse";
+import { LogoutResponse } from "./../models/response/LogoutResponse";
 import apiAxios from "../network";
 
 const REGISTER_URL = '/auth/register';
 const AUTHENTICATE_URL = '/auth/authenticate'
 const LOGOUT_URL = '/auth/logout';
+
 export default class AuthService {
   static async login(email: string, password: string): Promise<AxiosResponse<AuthResponse>> {
     return apiAxios.post<AuthResponse>(AUTHENTICATE_URL, { email, password });
@@ -18,7 +20,7 @@ export default class AuthService {
     });
   }
 
-  static async logout(): Promise<void> {
-    return apiAxios.post(LOGOUT_URL);
+  static async logout(): Promise<AxiosResponse<LogoutResponse>> {
+    return apiAxios.post<LogoutResponse>(LOGOUT_URL);
   }
 };

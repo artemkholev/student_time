@@ -26,9 +26,8 @@ apiAxios.interceptors.response.use((config) => config, async (error) => {
     try {
       const dispatch = useAppDispatch();
 
-      const response = await axios.post<AuthResponse>(`${API_URL}/auth/refresh`, { withCredentials: true });
+      const response = await axios.post<AuthResponse>(`${API_URL}auth/refresh`, { withCredentials: true });
       localStorage.setItem('token', response.data.accessToken);
-
       return apiAxios.request(originalRequest);
     } catch (e:any) {
       console.log(e.message);

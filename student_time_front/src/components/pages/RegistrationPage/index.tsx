@@ -33,7 +33,7 @@ export const RegistrationPage = observer((
   const [userPassword, setUserPassword] = useState<string>('');
   const [userRepeatPassword, setUserRepeatPassword] = useState<string>('');
   const [passwordMatch, setPasswordMatch] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     if (
@@ -53,7 +53,6 @@ export const RegistrationPage = observer((
       password: userPassword,
     });
   }, [userEmail, userPassword]);
-
 
   useEffect(() => {
     if (userPassword === userRepeatPassword && userPassword.length > 0) {

@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthResponseUser {
-  private boolean isAuth;
+  private boolean authUser;
   private Role role;
 }
