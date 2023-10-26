@@ -1,0 +1,47 @@
+@import '../../app/assets/styles/main.scss';
+@import '../../app/assets/styles/vars.scss';
+
+.container {
+  width: 100%;
+  & > .mainSection {
+    display: flex;
+    flex-direction: column;
+    padding: 100px 0;
+    & > .photo {
+      position: relative;
+      width: 100%;
+      margin-bottom: 40px;
+      & > .mainSection_img {
+        width: 100%;
+      }
+      & > .topRight {
+        position: absolute;
+        top: 10%;
+        right: 10%;
+        font-size: 40px;
+      }
+    }
+    & > .informations {
+      position: relative;
+      width: 500px;
+      margin-left: 50px;
+      padding-left: 50px;
+      border-left: 4px solid #181717;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      & > p {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 25px;
+        line-height: 28px;
+        color: #333333;
+        font-style: italic;
+      }
+      & > cite {
+        position: absolute;
+        right: 0px;
+        font-style: italic;
+        color: #000;
+      }
+    }
+  }
+}

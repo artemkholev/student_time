@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 
-import { store } from "../../store/store";
-import { UserPage } from "../../components/pages/UserPage";
-import { useAppDispatch } from "../../hooks/storeHooks";
-import { logout } from "../../store/slice/authSlice/authSlice";
-import { useAppSelector } from "../../hooks/storeHooks";
-import { selectUserIsAuth } from "../../store/slice/authSlice/authSlice";
+import { store } from "../../shared/model/store/store";
+import { UserPage } from "../../pages/UserPage";
+import { useAppDispatch } from "../../shared/lib/hooks/storeHooks";
+import { logout } from "../../shared/model/store/slice/authSlice/authSlice";
+import { useAppSelector } from "../../shared/lib/hooks/storeHooks";
+import { selectUserIsAuth } from "../../shared/model/store/slice/authSlice/authSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import apiAxios from "../../network";
+import apiAxios from "../../shared/api/network";
 import { AxiosError } from "axios";
 
 export const UserProfileContainer = () => {

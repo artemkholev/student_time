@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MainPage } from "../../components/pages/MainPage";
+import { MainPage } from "../../pages/MainPage";
 
 export const MainContainer = () => {
   return <MainPage/>
