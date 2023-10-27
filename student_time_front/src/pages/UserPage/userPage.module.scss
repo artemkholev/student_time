@@ -17,7 +17,7 @@
     border-bottom: 3px solid #00B3FF;
     & > .userPage {
       position: absolute;
-      width: 344px;
+      width: 40%;
       height: 74px;
       top: 50%;  
       margin-top: -0.625em;
@@ -45,7 +45,7 @@
 
   & > .infoAboutUser {
     position: relative;
-    margin: 50px 50px 50px 50px;
+    margin: 5%;
     display: flex;
     justify-content: space-between;
     gap: 20px;
@@ -83,7 +83,7 @@
     }
     & > .button {
       display: flex;
-      width: 420px;
+      width: 40%;
       height: 73px;
       align-items: center;
       gap: 60px;
