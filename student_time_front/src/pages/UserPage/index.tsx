@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import style from './userPage.module.scss';
 import { Button } from '../../shared/ui/Button';
@@ -9,14 +9,14 @@ import { ModalWindowPage } from "../common/modalWindowPage";
 import { useAppSelector } from "../../shared/lib/hooks/storeHooks";
 
 type UserPageType = {
-  handlerButton: () => void;
+  userOutput: () => void;
   userEmail: String;
   userRole: String;
   isAuth: boolean;
 };
 
 export const UserPage = observer((props: UserPageType) => {
-  const { handlerButton, userEmail, userRole, isAuth } = props;
+  const { userOutput, userEmail, userRole, isAuth } = props;
   const [modal, setModal] = useState(!isAuth);
   const closeModal = () => {
     setModal(false);
@@ -41,7 +41,7 @@ export const UserPage = observer((props: UserPageType) => {
         </div>
         <div className={style.info}>
           <p className={style.email}>{userEmail}</p>
-          <p className={style.vacancy}>{useAppSelector(selectUserRole)}</p>
+          <p className={style.vacancy}>{userRole}</p>
           <p className={style.time}>Eastern European Time (EET), Cairo UTC +3</p>
         </div>
         <div className={style.button}>
@@ -77,23 +77,17 @@ export const UserPage = observer((props: UserPageType) => {
       </div>
       
       <div className={style.exitButton}>
-        <Button
-            clName={"exit"}
-            title="exit"
-            handler={handlerButton}
-            width="160px"
-            height="55px"
-            background="#000"
-            textColor="#FFF"
-            fontSize="18px"
-            fontWeight="400"
-            margin="0 0 0 0"
-            borderRadius="10px"
-            icon={null}
-          />
+        <Link to="/" onClick={userOutput}>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 10.8333V15.8333C15 16.2754 14.8244 16.6993 14.5118 17.0118C14.1993 17.3244 13.7754 17.5 13.3333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V6.66667C2.5 6.22464 2.67559 5.80072 2.98816 5.48816C3.30072 5.17559 3.72464 5 4.16667 5H9.16667" stroke="#2A2F37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12.5 2.5H17.5V7.5" stroke="#2A2F37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M8.33334 11.6667L17.5 2.5" stroke="#2A2F37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <p className={style.dropDownMenuText}>Выход</p>
+        </Link>
       </div>
 
-      <ModalWindowPage
+      {/* <ModalWindowPage
         visible={modal}
         title='Auth problem'
         content={<p>User prblem. You need login!</p>}
@@ -113,7 +107,7 @@ export const UserPage = observer((props: UserPageType) => {
         />}
         onClose={closeModal}
         time={true}
-      />
+      /> */}
     </div>
   );
 });

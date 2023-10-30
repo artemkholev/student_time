@@ -33,7 +33,8 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-    private static final String[] WHITE_LIST_URL = {"/auth/**",
+        private static final String[] WHITE_LIST_URL = { "/auth/**",
+            "/users/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",

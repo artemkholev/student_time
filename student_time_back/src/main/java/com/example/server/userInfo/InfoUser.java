@@ -1,4 +1,4 @@
-package com.example.server.auth;
+package com.example.server.userInfo;
 
 import com.example.server.user.Role;
 
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthResponseUser {
-  private boolean authUser;
-  private Role role;
+public class InfoUser {
+  private String userEmail;
+  private Role userRole;
 }

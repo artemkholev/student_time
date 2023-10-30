@@ -5,7 +5,7 @@ import { LogoutResponse } from "../models/response/LogoutResponse";
 import apiAxios from "../shared/api/network";
 
 const REGISTER_URL = '/auth/register';
-const AUTHENTICATE_URL = '/auth/authenticate'
+const AUTHENTICATE_URL = '/auth/authenticate';
 const LOGOUT_URL = '/auth/logout';
 
 export default class AuthService {
@@ -14,10 +14,7 @@ export default class AuthService {
   }
 
   static async registration(email: string, password: string, role: string): Promise<AxiosResponse<AuthResponse>> {
-    return apiAxios.post<AuthResponse>(REGISTER_URL, { email, password, role }, {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true
-    });
+    return apiAxios.post<AuthResponse>(REGISTER_URL, { email, password, role });
   }
 
   static async logout(): Promise<AxiosResponse<LogoutResponse>> {

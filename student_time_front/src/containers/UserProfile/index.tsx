@@ -1,61 +1,40 @@
 import React, {useEffect, useState} from "react";
 
-import { store } from "../../shared/model/store/store";
 import { UserPage } from "../../pages/UserPage";
 import { useAppDispatch } from "../../shared/lib/hooks/storeHooks";
 import { logout } from "../../shared/model/store/slice/authSlice/authSlice";
 import { useAppSelector } from "../../shared/lib/hooks/storeHooks";
 import { selectUserIsAuth } from "../../shared/model/store/slice/authSlice/authSlice";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import apiAxios from "../../shared/api/network";
-import { AxiosError } from "axios";
+import UserService from "../../processes/UserService";
 
 export const UserProfileContainer = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userRole, setUserRole] = useState("");
-
+  const isAuth = useAppSelector(selectUserIsAuth);
   const dispatch = useAppDispatch();
 
-  const [isAuth, setIsAuth] = useState(useAppSelector(selectUserIsAuth));
-
-  const handlerButton = async () => {
+  const userOutput = () => {
     if (isAuth) {
-      await dispatch(logout());
-    } 
+      dispatch(logout());
+    }
   };
 
-  interface ValidationErrors {
-    errorMessage: string
-    field_errors: Record<string, string>
-  }
+  const getUserInfo = async () => {
+    const response = await UserService.getUser();
+    setUserEmail(response.data.userEmail);
+    setUserRole(response.data.userRole)
+  };
 
-  const login = createAsyncThunk(
-  '/user/info',
-  // eslint-disable-next-line consistent-return
-  async () => {
-    try {
-      const response = await apiAxios.post('http://localhost:8080/user/info');
-      console.log(response.data);
-      setUserEmail(response.data.email);
-      setUserRole(response.data.role);
-    } catch (err:any) {
-      const error: AxiosError<ValidationErrors> = err;
-      if (!error.response) {
-        throw err;
-      }
-    }
-  }
-  );
-  
   useEffect(() => {
-    login();
+    if (localStorage.getItem('token')) {
+      getUserInfo();
+    }
   }, []);
-
 
   return (
     <div>
       <UserPage
-        handlerButton={handlerButton}
+        userOutput={userOutput}
         userEmail={userEmail}
         userRole={userRole}
         isAuth={isAuth}

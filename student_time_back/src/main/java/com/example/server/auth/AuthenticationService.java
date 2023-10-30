@@ -50,13 +50,10 @@ public class AuthenticationService {
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, accessToken);
 
-    boolean isAuth = true;
-    var userData = new AuthResponseUser(isAuth, user.getRole());
-
     var authResponse = AuthenticationResponse.builder()
-        .accessToken(accessToken)
-        .userResponse(userData)
-        .build();
+      .accessToken(accessToken)
+      .userRole(user.getRole())
+      .build();
 
     Cookie cookie = new Cookie("refreshToken", refreshToken);
     response.addCookie(cookie);
@@ -79,12 +76,9 @@ public class AuthenticationService {
     var refreshToken = jwtService.generateRefreshToken(user);
     revokeAllUserTokens(user);
     saveUserToken(user, accessToken);
-
-    boolean isAuth = true;
-    var userData = new AuthResponseUser(isAuth, user.getRole());
     var authResponse = AuthenticationResponse.builder()
       .accessToken(accessToken)
-      .userResponse(userData)
+      .userRole(user.getRole())
       .build();
 
     Cookie cookie = new Cookie("refreshToken", refreshToken);
@@ -135,7 +129,7 @@ public class AuthenticationService {
         var accessToken = jwtService.generateToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, accessToken);
-        var authResponse = AuthenticationResponse.builder()
+        var authResponse = AccessTokenResponse.builder()
                 .accessToken(accessToken)
                 .build();
         new ObjectMapper().writeValue(response.getOutputStream(), authResponse);

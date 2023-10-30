@@ -1,4 +1,4 @@
 export interface IUser {
-  role: string
-  authUser: boolean
+  isAuth: boolean
+  userRole: string
 }

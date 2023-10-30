@@ -1,5 +1,6 @@
 package com.example.server.auth;
 
+import com.example.server.user.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -14,6 +15,6 @@ import lombok.NoArgsConstructor;
 public class AuthenticationResponse {
   @JsonProperty("accessToken")
   private String accessToken;
-  @JsonProperty("userResponse")
-  private AuthResponseUser userResponse;
+  @JsonProperty("userRole")
+  private Role userRole;
 }

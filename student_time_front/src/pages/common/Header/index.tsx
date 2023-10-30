@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
 
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite';
 import style from './Header.module.scss'
+import { useAppSelector } from "../../../shared/lib/hooks/storeHooks";
+import { selectUserIsAuth } from "../../../shared/model/store/slice/authSlice/authSlice";
 
 
 const Header = observer(() => {
+  const isAuth = useAppSelector(selectUserIsAuth);
+  
   return (
     <header className={style.header}>
       <div className={style.container}>
@@ -30,17 +34,17 @@ const Header = observer(() => {
             >
                 catalog
             </NavLink>
-            <NavLink
-              to="/auth/authenticate" 
-              className={({ isActive }) => `${(isActive || document.location.pathname === "/auth/register" ) ? [style.active, style.loginUser].join(' ') : style.loginUser}`}
+            {!isAuth && <NavLink
+              to="/auth/authenticate"
+              className={({ isActive }) => `${(isActive || document.location.pathname === "/auth/register") ? [style.active, style.loginUser].join(' ') : style.loginUser}`}
             >
-                login
-            </NavLink>
-            <NavLink
+              login
+            </NavLink>}
+            {isAuth && <NavLink
               to="/user"
               className={({ isActive }) => `${(isActive) ? [style.active, style.photoUser].join(' ') : style.photoUser}`}
             >
-            </NavLink>
+            </NavLink>}
           </div>
         </div>
       </div>

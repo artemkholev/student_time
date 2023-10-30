@@ -1,10 +1,10 @@
 import axios, { AxiosError } from 'axios';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser } from '../../../../../models/IUser';
 import AuthService from '../../../../../processes/AuthService';
-import { AuthResponse } from '../../../../../models/response/AuthResponse';
 import apiAxios, { API_URL } from '../../../../api/network';
 import { RootState } from '../../store';
+import { IUser } from '../../../../../models/IUser';
+import { accessTokenResponse } from '../../../../../models/response/accessTokenResponse';
 
 interface ValidationErrors {
   errorMessage: string
@@ -19,7 +19,7 @@ export const registration = createAsyncThunk(
       const { userInput } = userData;
       const response = await AuthService.registration(userInput.email, userInput.password, "USER");
       localStorage.setItem('token', response.data.accessToken);
-      return response.data.userResponse;
+      return { isAuth: true, userRole: response.data.userRole };
     } catch (err:any) {
       const error: AxiosError<ValidationErrors> = err;
       if (!error.response) {
@@ -39,7 +39,7 @@ export const login = createAsyncThunk(
       const { userInput } = userData;
       const response = await AuthService.login(userInput.email , userInput.password);
       localStorage.setItem('token', response.data.accessToken);
-      return response.data.userResponse;
+      return   { isAuth: true, userRole: response.data.userRole };
     } catch (err:any) {
       const error: AxiosError<ValidationErrors> = err;
       if (!error.response) {
@@ -56,8 +56,7 @@ export const logout = createAsyncThunk(
   // eslint-disable-next-line consistent-return
   async () => {
     try {
-      const response =  await AuthService.logout();
-      console.log(response.data);
+      await AuthService.logout();
       localStorage.removeItem('token');
     } catch (e:any) {
       console.log(e.message);
@@ -71,11 +70,9 @@ export const refresh = createAsyncThunk(
   // eslint-disable-next-line consistent-return
   async () => {
     try {
-      const response = await apiAxios.post<AuthResponse>('/auth/refresh', {  withCredentials: true });
-
+      const response = await apiAxios.post<accessTokenResponse>('/auth/refresh');
       localStorage.setItem('token', response.data.accessToken);
-
-      return response.data.userResponse;
+      return {isAuth: true};
     } catch (err: any) {
       console.log(err.message);
     }
@@ -89,16 +86,19 @@ export interface UserState {
 
 const initialState: UserState = {
   user: {
-    role: '',
-    authUser: false,
+    isAuth: false,
+    userRole: ''
   },
   error: ''
 };
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: 'authUser',
   initialState,
   reducers: {
+    addUserIsAuth: (state, action: PayloadAction<boolean>) => {
+      state.user.isAuth = action.payload;
+    },
     clearErrorMessage: (state) => {
       state.error = '';
     },
@@ -126,8 +126,8 @@ export const authSlice = createSlice({
     });
     builder.addCase(logout.fulfilled, (state) => {
       state.user = {
-        authUser: false,
-        role: ''
+        isAuth: false,
+        userRole: ''
       } as IUser;
     });
     builder.addCase(refresh.fulfilled, (state, action) => {
@@ -139,10 +139,10 @@ export const authSlice = createSlice({
   },
 });
 
-export const { clearErrorMessage } = authSlice.actions;
+export const { addUserIsAuth, clearErrorMessage } = authSlice.actions;
 
-export const selectUserIsAuth = (state: RootState) => state.auth.user.authUser;
-export const selectUserRole = (state: RootState) => state.auth.user.role;
+export const selectUserIsAuth = (state: RootState) => state.auth.user.isAuth;
+export const selectUserRole = (state: RootState) => state.auth.user.userRole;
 export const selectAuthError = (state: RootState) => state.auth.error;
 
 export default authSlice.reducer;

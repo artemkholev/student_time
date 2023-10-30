@@ -1,4 +1,4 @@
 export interface IAboutUser {
-  role: string;
-  isAuth: boolean;
+  userEmail: string;
+  userRole: string;
 }

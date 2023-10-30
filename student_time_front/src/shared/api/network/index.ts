@@ -1,6 +1,7 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import { useAppDispatch } from '../../lib/hooks/storeHooks';
-import { AuthResponse } from '../../../models/response/AuthResponse';
+import { addUserIsAuth, refresh } from "../../model/store/slice/authSlice/authSlice";
+import { accessTokenResponse } from "../../../models/response/accessTokenResponse";
 
 export const API_URL = 'http://localhost:8080/';
 
@@ -22,18 +23,18 @@ apiAxios.interceptors.response.use((config) => config, async (error) => {
   // eslint-disable-next-line no-underscore-dangle
   if (error.response.status === 401 && error.config && !error.config._isRetry) {
     // eslint-disable-next-line no-underscore-dangle
+    const dispatch = useAppDispatch();
     originalRequest._isRetry = true;
     try {
-      const dispatch = useAppDispatch();
-
-      const response = await axios.post<AuthResponse>(`${API_URL}auth/refresh`, { withCredentials: true });
+      const response = await apiAxios.post<accessTokenResponse>('/auth/refresh');
       localStorage.setItem('token', response.data.accessToken);
+
       return apiAxios.request(originalRequest);
-    } catch (e:any) {
+    } catch (e: any) {
+      dispatch(addUserIsAuth(false));
       console.log(e.message);
     }
   }
-
   throw error;
 });
 
