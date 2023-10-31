@@ -1,5 +1,4 @@
 export interface IAboutUser {
-  id:number;
-  email: string;
-  role:string;
+  userEmail: string;
+  userRole: string;
 }
