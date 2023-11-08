@@ -1,2 +1,2 @@
-export * as apiAxios from "./network";
-export * from "./network";
+export * as apiAxios from "./network/base";
+export * from "./network/base";

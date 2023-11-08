@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { IAboutUser } from '../models/IAboutUser';
-import apiAxios  from '../shared/api/network';
+import { IAboutUser } from '../models';
+import apiAxios  from '../base';
 
 const INFO_ABOUT_USER_URL = '/users/info'
 export default class UserService {

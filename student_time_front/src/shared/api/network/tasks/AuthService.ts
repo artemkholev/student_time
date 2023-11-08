@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 
-import { AuthResponse } from "../models/response/AuthResponse";
-import { LogoutResponse } from "../models/response/LogoutResponse";
-import apiAxios from "../shared/api/network";
+import { AuthResponse } from "../models";
+import { LogoutResponse } from "../models";
+import apiAxios from "../base";
 
 const REGISTER_URL = '/auth/register';
 const AUTHENTICATE_URL = '/auth/authenticate';
