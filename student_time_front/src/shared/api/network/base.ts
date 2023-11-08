@@ -1,9 +1,8 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import { useAppDispatch } from '../../lib/hooks/storeHooks';
 import { addUserIsAuth, refresh } from "../../model/store/slice/authSlice/authSlice";
-import { accessTokenResponse } from "../../../models/response/accessTokenResponse";
-
-export const API_URL = 'http://localhost:8080/';
+import { accessTokenResponse } from "../models";
+import { API_URL } from "../../config";
 
 const apiAxios = axios.create({
   baseURL: API_URL,
