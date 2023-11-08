@@ -1,6 +1,6 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import { useAppDispatch } from '../../lib/hooks/storeHooks';
-import { addUserIsAuth, refresh } from "../../model/store/slice/authSlice/authSlice";
+import { addUserIsAuth, refresh } from "../../stores/slice/authSlice/authSlice";
 import { accessTokenResponse } from "../models";
 import { API_URL } from "../../config";
 

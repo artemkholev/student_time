@@ -8,7 +8,7 @@ import { Button } from '../../shared/ui/Button';
 import { Form } from "../../widgets/Form";
 import { InputForRegAuth } from "../../shared/ui/Input/InputForRegAuth"
 import { RegAuthButton } from "../../shared/ui/Button/RegAuthButton";
-import { IAuthUser } from "../../models/IAuthUser";
+import { IAuthUser } from "../../shared/models/IAuthUser";
  
 type AuthPageType = {
   handlerUserInput: (data: IAuthUser) => Promise<void> | void | null;

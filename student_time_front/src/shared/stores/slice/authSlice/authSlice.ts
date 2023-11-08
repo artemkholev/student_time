@@ -1,11 +1,11 @@
 import axios, { AxiosError } from 'axios';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import AuthService from '../../../../api/network/tasks/AuthService';
-import apiAxios from '../../../../api/network/base';
-import { API_URL } from '../../../../config';
+import AuthService from '../../../api/network/tasks/AuthService';
+import apiAxios from '../../../api/network/base';
+import { API_URL } from '../../../config';
 import { RootState } from '../../store';
-import { IUser } from '../../../../../models/IUser';
-import { accessTokenResponse } from '../../../../api/models';
+import { IUser } from '../../../models/IUser';
+import { accessTokenResponse } from '../../../api/models';
 
 interface ValidationErrors {
   errorMessage: string

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite';
 import style from './Header.module.scss'
 import { useAppSelector } from "../../shared/lib/hooks/storeHooks";
-import { selectUserIsAuth } from "../../shared/model/store/slice/authSlice/authSlice";
+import { selectUserIsAuth } from "../../shared/stores/slice/authSlice/authSlice";
 
 
 const Header = observer(() => {

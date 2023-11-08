@@ -1,7 +1,7 @@
 import React, {useEffect} from "react"
 
 import { useAppDispatch } from '../shared/lib/hooks/storeHooks';
-import { refresh } from '../shared/model/store/slice/authSlice/authSlice';
+import { refresh } from '../shared/stores/slice/authSlice/authSlice';
 import { Routing } from "../pages";
 import { withProviders } from "./providers";
 

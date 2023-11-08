@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { RegistrationPage } from "../../pages/RegistrationPage";
-import { IRegistrationUser } from "../../models/IRegistrationUser";
-import { clearErrorMessage, registration, selectAuthError, selectUserRole } from "../../shared/model/store/slice/authSlice/authSlice";
+import { IRegistrationUser } from "../../shared/models/IRegistrationUser";
+import { clearErrorMessage, registration, selectAuthError, selectUserRole } from "../../shared/stores/slice/authSlice/authSlice";
 import { useAppDispatch, useAppSelector } from "../../shared/lib/hooks/storeHooks";
 
 

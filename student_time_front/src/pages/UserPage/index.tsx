@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 
 import style from './userPage.module.scss';
 import { Button } from '../../shared/ui/Button';
-import { selectUserIsAuth, selectUserRole } from "../../shared/model/store/slice/authSlice/authSlice";
+import { selectUserIsAuth, selectUserRole } from "../../shared/stores/slice/authSlice/authSlice";
 import { ModalWindowPage } from "../../widgets/modalWindowPage";
 import { useAppSelector } from "../../shared/lib/hooks/storeHooks";
 

@@ -8,7 +8,7 @@ import { Form } from "../../widgets/Form";
 import { InputForRegAuth } from "../../shared/ui/Input/InputForRegAuth";
 import { RegAuthButton } from "../../shared/ui/Button/RegAuthButton";
 import { Checkbox } from "../../shared/ui/Input/Checkbox";
-import { IRegistrationUser } from "../../models/IRegistrationUser";
+import { IRegistrationUser } from "../../shared/models/IRegistrationUser";
  
 type RegistrationPageType = {
   handlerUserInput: (data: IRegistrationUser) => void;

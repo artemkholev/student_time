@@ -1,8 +1,7 @@
+import { IAboutUser } from './../../../api/network/models';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useNavigate } from 'react-router-dom';
-
-import { IAboutUser } from "../../../../../models/IAboutUser";
-import UserService from "../../../../api/network/tasks/UserService";
+import UserService from "../../../api/network/tasks/UserService";
 import { RootState } from "../../store";
 import { AxiosError } from 'axios';
 
