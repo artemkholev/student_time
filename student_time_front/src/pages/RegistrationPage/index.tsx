@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import style from './RegistrationPage.module.scss';
 import { Button } from "../../shared/ui/Button";
-import { Form } from "../common/Form";
+import { Form } from "../../widgets/Form";
 import { InputForRegAuth } from "../../shared/ui/Input/InputForRegAuth";
 import { RegAuthButton } from "../../shared/ui/Button/RegAuthButton";
 import { Checkbox } from "../../shared/ui/Input/Checkbox";

@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import { PageWrapper } from "./common/PageWrapper"
+import { PageWrapper } from "../widgets/PageWrapper"
 import { AuthContainer } from "../containers/AuthContainer";
 import { MainContainer } from "../containers/MainContainer";
 import { RegistrationContainer } from "../containers/RegistrationContainer";

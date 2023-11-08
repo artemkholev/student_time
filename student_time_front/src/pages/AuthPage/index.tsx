@@ -5,7 +5,7 @@ import axios  from "axios";
 
 import style from './AuthPage.module.scss';
 import { Button } from '../../shared/ui/Button';
-import { Form } from "../common/Form";
+import { Form } from "../../widgets/Form";
 import { InputForRegAuth } from "../../shared/ui/Input/InputForRegAuth"
 import { RegAuthButton } from "../../shared/ui/Button/RegAuthButton";
 import { IAuthUser } from "../../models/IAuthUser";
