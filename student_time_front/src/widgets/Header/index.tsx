@@ -28,12 +28,12 @@ const Header = observer(() => {
           <Link to="/" className={style.logo}>STUDENT TIME</Link>
         
           <div className={style.userTabs}>
-            <NavLink
+            {isAuth && <NavLink
               to="/catalog"
               className={({ isActive }) => `${isActive ? [style.active, style.catalogUser].join(' ') : style.catalogUser}`}
             >
-                catalog
-            </NavLink>
+              catalog
+            </NavLink>}
             {!isAuth && <NavLink
               to="/auth/authenticate"
               className={({ isActive }) => `${(isActive || document.location.pathname === "/auth/register") ? [style.active, style.loginUser].join(' ') : style.loginUser}`}

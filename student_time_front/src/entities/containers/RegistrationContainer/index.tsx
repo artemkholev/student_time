@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { RegistrationPage } from "../../pages/RegistrationPage";
-import { IRegistrationUser } from "../../shared/models/IRegistrationUser";
-import { clearErrorMessage, registration, selectAuthError, selectUserRole } from "../../shared/stores/slice/authSlice/authSlice";
-import { useAppDispatch, useAppSelector } from "../../shared/lib/hooks/storeHooks";
+import { RegistrationPage } from "../../../pages/RegistrationPage";
+import { IRegistrationUser } from "../../../shared/models/IRegistrationUser";
+import { clearErrorMessage, registration, selectAuthError, selectUserRole } from "../../../shared/stores/slice/authSlice/authSlice";
+import { useAppDispatch, useAppSelector } from "../../../shared/lib/hooks/storeHooks";
 
 
 export const RegistrationContainer = () => {

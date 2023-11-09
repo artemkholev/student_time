@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 
-import { UserPage } from "../../pages/UserPage";
-import { useAppDispatch } from "../../shared/lib/hooks/storeHooks";
-import { logout } from "../../shared/stores/slice/authSlice/authSlice";
-import { useAppSelector } from "../../shared/lib/hooks/storeHooks";
-import { selectUserIsAuth } from "../../shared/stores/slice/authSlice/authSlice";
-import UserService from "../../shared/api/network/tasks/UserService";
+import { UserPage } from "../../../pages/UserPage";
+import { useAppDispatch } from "../../../shared/lib/hooks/storeHooks";
+import { logout } from "../../../shared/stores/slice/authSlice/authSlice";
+import { useAppSelector } from "../../../shared/lib/hooks/storeHooks";
+import { selectUserIsAuth } from "../../../shared/stores/slice/authSlice/authSlice";
+import UserService from "../../../shared/api/network/tasks/UserService";
 
 export const UserProfileContainer = () => {
   const [userEmail, setUserEmail] = useState("");

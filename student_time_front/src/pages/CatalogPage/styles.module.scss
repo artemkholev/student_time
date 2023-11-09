@@ -2,9 +2,43 @@
 @import '../../app/assets/styles/vars.scss';
 
 .container {
+  margin-top: 100px;
   width: 100%;
-  height: 50%;
+  display: flex;
+  flex-direction: column;
   border-top: 5px solid #000;
   border-bottom: 5px solid #000;
   background: var(--new-gray, #E9E9E9);
+
+  & > h1 {
+    display: flex;
+    width: 700px;
+    height: 200px;
+    margin: 30px auto 40px auto;
+    flex-direction: column;
+    justify-content: center;
+    color: #FFF;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 400;
+    letter-spacing: 19px;
+    border-radius: 100px 0px;
+    border: 4px solid var(--blue, #00B3FF);
+    background: #000;
+  }
+
+  & > .line1{
+    margin: 10px auto 50px auto;
+    width: 70%;
+    height: 10px;
+    background: #000;
+
+  }
+
+  & > .line2{
+    margin: 10px auto 50px auto;
+    width: 50%;
+    height: 5px;
+    background: #000;
+  }
 }

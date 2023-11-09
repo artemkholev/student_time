@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { AuthPage } from "../../pages/AuthPage";
-import { login, selectAuthError, selectUserRole, clearErrorMessage } from "../../shared/stores/slice/authSlice/authSlice"
-import { useAppSelector, useAppDispatch } from "../../shared/lib/hooks/storeHooks";
-import { IAuthUser } from "../../shared/models/IAuthUser";
+import { AuthPage } from "../../../pages/AuthPage";
+import { login, selectAuthError, selectUserRole, clearErrorMessage } from "../../../shared/stores/slice/authSlice/authSlice"
+import { useAppSelector, useAppDispatch } from "../../../shared/lib/hooks/storeHooks";
+import { IAuthUser } from "../../../shared/models/IAuthUser";
 
 export const AuthContainer = () => {  
   const [userInput, setUserInput] = useState<IAuthUser>();

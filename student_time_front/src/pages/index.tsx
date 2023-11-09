@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 
 import { PageWrapper } from "../widgets/PageWrapper"
-import { AuthContainer } from "../containers/AuthContainer";
+import { AuthContainer } from "../entities/containers/AuthContainer";
 import { MainPage } from "./MainPage";
-import { RegistrationContainer } from "../containers/RegistrationContainer";
-import { UserProfileContainer } from "../containers/UserProfile";
+import { RegistrationContainer } from "../entities/containers/RegistrationContainer";
+import { UserProfileContainer } from "../entities/containers/UserProfile";
 import { CatalogPage } from "./CatalogPage";
 
 
