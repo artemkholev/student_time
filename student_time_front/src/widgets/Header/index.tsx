@@ -29,7 +29,7 @@ const Header = observer(() => {
         
           <div className={style.userTabs}>
             {isAuth && <NavLink
-              to="/catalog"
+              to="/user/catalog"
               className={({ isActive }) => `${isActive ? [style.active, style.catalogUser].join(' ') : style.catalogUser}`}
             >
               catalog
